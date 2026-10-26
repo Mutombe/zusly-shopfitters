@@ -159,12 +159,46 @@
   function initReveal() {
     const els = $$(".reveal");
     if (!("IntersectionObserver" in window)) return els.forEach((e) => e.classList.add("is-in"));
+    // Stagger siblings that share a parent so a grid or list flows in, not all at once.
+    els.forEach((el) => {
+      const sibs = el.parentElement ? [].slice.call(el.parentElement.children).filter((c) => c.classList.contains("reveal")) : [el];
+      el._stag = Math.min(sibs.indexOf(el), 5) * 70;
+    });
     const io = new IntersectionObserver((entries) => {
       entries.forEach((en) => {
-        if (en.isIntersecting) { en.target.classList.add("is-in"); io.unobserve(en.target); }
+        if (en.isIntersecting) {
+          if (en.target._stag) en.target.style.setProperty("--rev-delay", en.target._stag + "ms");
+          en.target.classList.add("is-in");
+          io.unobserve(en.target);
+        }
       });
     }, { rootMargin: "0px 0px -8% 0px" });
     els.forEach((e) => io.observe(e));
+  }
+
+  function initCounters() {
+    const els = $$(".about__stats b, .band__stats b");
+    if (!els.length || !("IntersectionObserver" in window)) return;
+    if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const parse = (t) => { const m = t.match(/^(\d[\d,]*)(.*)$/); return m ? { n: +m[1].replace(/,/g, ""), suf: m[2] } : null; };
+    const run = (el, target, suf) => {
+      const dur = 1200, t0 = performance.now();
+      const tick = (now) => {
+        const p = Math.min(1, (now - t0) / dur);
+        el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))) + suf;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    const io = new IntersectionObserver((ents) => {
+      ents.forEach((en) => {
+        if (!en.isIntersecting) return;
+        io.unobserve(en.target);
+        const info = parse(en.target.textContent);
+        if (info && info.n > 0) run(en.target, info.n, info.suf);
+      });
+    }, { rootMargin: "0px 0px -10% 0px" });
+    els.forEach((el) => io.observe(el));
   }
 
   /* ---------------- Shared options ---------------- */
@@ -804,5 +838,6 @@
   $$("select").forEach(initSelect);
   $$("[data-carousel]").forEach(initCarousel);
   initReveal();
+  initCounters();
   initFraming();
 })();
