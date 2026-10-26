@@ -10,19 +10,31 @@
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const unique = (arr) => [...new Set(arr)];
 
+  // Phosphor (duotone) icon helper — webfont loaded in each page <head>
+  const ph = (name, cls = "") => `<i class="ph-duotone ph-${name}${cls ? " " + cls : ""}" aria-hidden="true"></i>`;
   const ICON = {
-    tag:   '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8L3 12Z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg>',
-    pin:   '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.3 7-12a7 7 0 1 0-14 0c0 5.7 7 12 7 12Z"/><circle cx="12" cy="10" r="2.6"/></svg>',
-    cal:   '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v13H4zM8 3v4m8-4v4M4 11h16"/></svg>',
+    tag:   ph("tag", "spec-ic"),
+    pin:   ph("map-pin", "spec-ic"),
+    cal:   ph("calendar-blank", "spec-ic"),
     arrow: '<svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 8h12M9 3l5 5-5 5"/></svg>',
     // Leadership
-    crown:     '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 24h24M5 11l5 5 6-9 6 9 5-5-2 13H7z"/></svg>',
-    chart:     '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 27V5M5 27h22M10 22l6-7 5 4 7-10"/></svg>',
-    hardhat:   '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 23h24M6 22a10 10 0 0 1 20 0M13 7h6v5h-6zM19 8a7 7 0 0 1 5 6M13 8a7 7 0 0 0-5 6"/></svg>',
-    people:    '<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="12" cy="11" r="4"/><path d="M5 26a7 7 0 0 1 14 0M22 8a4 4 0 0 1 0 8M23 26a7 7 0 0 0-3-5.7"/></svg>',
-    handshake: '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 12l5-4 8 3 3-2 7 4M29 20l-5 4-5-4M16 11l-4 4a2.5 2.5 0 0 0 3.5 3.5l1-1 3 3a2.5 2.5 0 0 0 3.5-3.5"/></svg>',
-    calc:      '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 3h16v26H8zM8 11h16M12 16h0M16 16h0M20 16h0M12 21h0M16 21h0M20 21h4v4"/></svg>',
+    crown:     ph("crown"),
+    chart:     ph("chart-line-up"),
+    hardhat:   ph("hard-hat"),
+    people:    ph("users-three"),
+    handshake: ph("handshake"),
+    calc:      ph("calculator"),
   };
+
+  // Home design-detail drawings
+  const DESIGNS = [
+    { img: "designs/design-bifold.png",            no: "D-01", name: "Bi-Fold System",       text: "Multi-leaf aluminium bi-fold that folds a wall away to the garden." },
+    { img: "designs/design-sliding-partition.png", no: "D-02", name: "Sliding Partition",    text: "Framed sliding panels that zone an interior without losing light." },
+    { img: "designs/design-stacking-slider.png",   no: "D-03", name: "Stacking Slider",      text: "Three-panel stacking door on a precision bottom-rolling track." },
+    { img: "designs/design-double-doors.png",      no: "D-04", name: "Double Entrance Doors", text: "Paired entrance doors with full-height pull handles and flush frames." },
+    { img: "designs/design-bypass-slider.png",     no: "D-05", name: "Bypass Slider",        text: "Two-track bypass glazing — one leaf glides behind the other." },
+    { img: "designs/design-pivot-door.png",        no: "D-06", name: "Pivot Door",           text: "Centre-hung pivot leaf detailed for a clean, frameless reveal." },
+  ];
 
   /* ---------------- Mobile drawer ---------------- */
   function initNav() {
@@ -88,6 +100,19 @@
       </div></a>`;
   }
 
+  function leadHTML(p) {
+    return `<a class="flead" href="project.html?p=${p.slug}">
+      <div class="flead__media"><img src="${img(p.img)}" alt="${esc(p.name)}" loading="lazy" width="1024" height="768">
+        <div class="card__tags"><span class="pill pill--glass">${esc(p.cat)}</span><span class="pill pill--glass">${esc(p.year)}</span></div></div>
+      <div class="flead__body">
+        <span class="flead__kicker">Featured project</span>
+        <h3 class="flead__name">${esc(p.name)}</h3>
+        <p class="flead__sum">${esc(p.summary)}</p>
+        <div class="flead__meta"><span>${ICON.pin}${esc(p.location)}, ${esc(D.company.city)}</span><span>${ICON.cal}${esc(p.year)}</span></div>
+        <span class="textlink">View project <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg></span>
+      </div></a>`;
+  }
+
   function initLanding() {
     const form = $("#search");
     if (form) {
@@ -95,8 +120,22 @@
       fillSelect(form.location, "loc");
       fillSelect(form.year, "year");
     }
+    // Featured: best project as a large lead card on top, the rest in the grid
+    const picked = D.projects.slice(0, 6);
+    const leadIdx = Math.max(0, picked.findIndex((p) => p.slug === "dark-reflective-residence"));
+    const lead = picked[leadIdx];
+    const rest = picked.filter((_, i) => i !== leadIdx);
+    const leadEl = $("#featuredLead");
+    if (leadEl && lead) leadEl.innerHTML = leadHTML(lead);
     const featured = $("#featured");
-    if (featured) featured.innerHTML = D.projects.slice(0, 6).map(cardHTML).join("");
+    if (featured) featured.innerHTML = rest.map(cardHTML).join("");
+
+    const dg = $("#designGrid");
+    if (dg) dg.innerHTML = DESIGNS.map((d) => `
+      <figure class="design reveal">
+        <div class="design__sheet"><img src="${img(d.img)}" alt="${esc(d.name)} — technical drawing" loading="lazy"></div>
+        <figcaption><span class="design__no">${esc(d.no)}</span><h3>${esc(d.name)}</h3><p>${esc(d.text)}</p></figcaption>
+      </figure>`).join("");
     const steps = $("#steps");
     if (steps) steps.innerHTML = D.journey.map((j, i) => {
       const dark = i === D.journey.length - 1 ? " step--dark" : "";

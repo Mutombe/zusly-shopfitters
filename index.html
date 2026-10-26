@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Michroma&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/duotone/style.css">
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="preload" as="image" href="assets/img/istock-construction-skyline.jpg">
 </head>
@@ -31,7 +32,7 @@
       <div class="topnav__right">
         <a class="link" href="contact.html" data-tel>Call Us</a>
         <a class="btn" href="contact.html">Get a Quote</a>
-        <a class="navsearch" href="projects.html" aria-label="Search projects"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4.5 4.5"/></svg></a>
+        <a class="navsearch" href="projects.html" aria-label="Search projects"><i class="ph-duotone ph-magnifying-glass" aria-hidden="true"></i></a>
         <button class="burger" aria-expanded="false" aria-label="Menu"><span></span><span></span></button>
       </div>
     </nav>
@@ -89,15 +90,15 @@
       </div>
       <div class="feature-stack">
         <article class="feature reveal">
-          <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M4 28h24M7 28V13l9-7 9 7v15"/><path d="M12 28v-7h8v7"/></svg>
+          <i class="ph-duotone ph-ruler ficon" aria-hidden="true"></i>
           <div><h3>Precision Fabrication</h3><p>Every profile cut and checked in-house.</p></div>
         </article>
         <article class="feature reveal">
-          <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M4 12 16 4l12 8M6 12v16h20V12M12 28v-8h8v8"/></svg>
+          <i class="ph-duotone ph-factory ficon" aria-hidden="true"></i>
           <div><h3>In-House Workshop</h3><p>Quality controlled end to end.</p></div>
         </article>
         <article class="feature feature--dark reveal">
-          <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M4 16h24M16 4v24M8 8l16 16M24 8 8 24"/><circle cx="16" cy="16" r="3"/></svg>
+          <i class="ph-duotone ph-crosshair ficon" aria-hidden="true"></i>
           <div><h3>Millimetre Accuracy</h3><p>Measured obsessively, fitted perfectly.</p></div>
         </article>
       </div>
@@ -113,8 +114,22 @@
         </div>
         <a class="textlink reveal" href="projects.html">View all projects <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg></a>
       </div>
+      <div id="featuredLead"></div>
       <p class="swipe-hint" aria-hidden="true">Swipe <svg viewBox="0 0 30 10"><path d="M0 5h29M25 1l4 4-4 4"/></svg></p>
       <div class="cards" id="featured"></div>
+    </section>
+
+    <!-- ============ DESIGN DETAIL ============ -->
+    <section class="section designs has-deco">
+      <span class="deco deco--curtain deco--at-designs" aria-hidden="true"></span>
+      <div class="section__head">
+        <div class="reveal">
+          <span class="pill pill--outline" style="margin-bottom:28px">Design &amp; Detail</span>
+          <h2 class="h-display">Engineered on<br>Paper First.</h2>
+        </div>
+        <p class="body-muted reveal" style="max-width:380px">Before a single profile is cut, every system is drawn to scale. These are the door, partition and glazing details we fabricate and fit — the standard behind the finish.</p>
+      </div>
+      <div class="design-grid" id="designGrid"></div>
     </section>
 
     <!-- ============ PROCESS ============ -->
@@ -132,8 +147,8 @@
 
     <!-- ============ BAND ============ -->
     <section class="band reveal" aria-label="Zusly in numbers">
-      <img src="assets/img/20250224_170625-1024x768.jpg" alt="" loading="lazy">
-      <span class="deco deco--contour deco--at-band" aria-hidden="true"></span>
+      <img src="assets/img/20250201_182842-1024x768.jpg" alt="" loading="lazy">
+      <span class="deco deco--curtain deco--at-band" aria-hidden="true"></span>
       <h2 class="h-display">Engineered Facades,<br>Built to Define a Skyline.</h2>
       <div class="band__stats">
         <div><b>150+</b><span>Projects delivered</span></div>
