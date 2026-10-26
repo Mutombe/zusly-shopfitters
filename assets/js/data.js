@@ -29,6 +29,17 @@ window.ZUSLY = {
     years: "8",
   },
 
+  // Social media — paste each profile URL. Empty entries are hidden on the site.
+  // Supported networks (icon chosen automatically): facebook, instagram,
+  // linkedin, x, youtube, tiktok, whatsapp.
+  social: [
+    { net: "facebook",  url: "" },
+    { net: "instagram", url: "" },
+    { net: "linkedin",  url: "" },
+    { net: "x",         url: "" },
+    { net: "youtube",   url: "" },
+  ],
+
   // "How we work" - shown on the home page and every project page
   journey: [
     { img: "istock-aluminium-door.jpg",                                 title: "Consultation & Survey", text: "A site visit and measure-up. We assess structure, light and intent before a line is drawn." },
