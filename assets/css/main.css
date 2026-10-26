@@ -1020,3 +1020,78 @@ main { overflow-x: clip; }
   .navsearch { display: inline-flex; }
   .header__ctrl { display: flex; }
 }
+
+/* ==========================================================================
+   ABOUT — editorial studio hero
+   ========================================================================== */
+.studio-hero {
+  display: grid; grid-template-columns: 1.05fr .95fr;
+  gap: clamp(28px, 4.5vw, 70px); align-items: end;
+  margin-top: 34px;
+}
+.studio-hero__intro { padding-bottom: 6px; }
+.studio-hero__intro .label { display: block; padding: 0; margin-bottom: 22px; color: var(--brand); font-weight: 600; }
+.studio-hero__title {
+  font-family: var(--wide); text-align: left; text-transform: uppercase;
+  font-size: clamp(30px, 4.3vw, 58px); font-weight: 400; line-height: 1.08; letter-spacing: .005em;
+  margin-bottom: 28px;
+}
+.studio-hero__intro .lead { max-width: 460px; }
+.studio-hero__media {
+  position: relative; margin: 0; overflow: hidden;
+  aspect-ratio: 4 / 4.3; background: #e9e9e9;
+}
+.studio-hero__media img { width: 100%; height: 100%; object-fit: cover; }
+.studio-hero__media figcaption {
+  position: absolute; left: 0; bottom: 0; display: inline-flex; align-items: center; gap: 12px;
+  padding: 12px 18px; background: rgba(0, 43, 82, .92); color: #fff;
+  font-size: 10px; letter-spacing: .09em; text-transform: uppercase;
+}
+.studio-hero__media figcaption b { font-family: var(--wide); font-weight: 400; color: var(--brand); }
+
+.studio-facts {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line-2); border-bottom: 1px solid var(--line-2);
+  margin-top: clamp(40px, 6vw, 64px);
+}
+.studio-facts > div { padding: 26px 24px 30px 0; border-right: 1px solid var(--line-2); }
+.studio-facts > div + div { padding-left: 24px; }
+.studio-facts > div:last-child { border-right: 0; }
+.studio-facts dt { font-size: 9.5px; letter-spacing: .09em; text-transform: uppercase; color: #8c8c8c; margin-bottom: 12px; }
+.studio-facts dd { margin: 0; font-family: var(--wide); font-size: clamp(15px, 1.5vw, 19px); line-height: 1.3; }
+
+@media (max-width: 900px) {
+  .studio-hero { grid-template-columns: 1fr; gap: 34px; }
+  .studio-hero__media { aspect-ratio: 16 / 11; }
+  .studio-facts { grid-template-columns: 1fr 1fr; }
+  .studio-facts > div:nth-child(2) { border-right: 0; }
+  .studio-facts > div { padding: 22px 18px 24px 0; }
+  .studio-facts > div:nth-child(even) { padding-left: 18px; }
+}
+@media (max-width: 560px) {
+  .studio-facts { grid-template-columns: 1fr; }
+  .studio-facts > div { border-right: 0; border-bottom: 1px solid var(--line-2); padding: 18px 0; }
+  .studio-facts > div:last-child { border-bottom: 0; }
+}
+
+/* ==========================================================================
+   CONTACT — plain map frame (no survey crosshairs)
+   ========================================================================== */
+.map-frame { aspect-ratio: 1.6; overflow: hidden; background: #e9e9e9; border: 1px solid var(--line-2); }
+.map-frame iframe { display: block; width: 100%; height: 100%; border: 0; }
+
+/* ==========================================================================
+   FOOTER — geometric "cornered" architectural treatment
+   (replaces the crenel + contour patterns)
+   ========================================================================== */
+.deco--corners { --pat: url(../img/patterns/corners.svg) 0 0 / 46px 46px repeat; }
+.deco--at-footer { opacity: .06; }
+
+.footer { position: relative; }
+.footer::before, .footer::after {
+  content: ""; position: absolute; top: 44px; width: 22px; height: 22px;
+  border: 1px solid rgba(255, 255, 255, .32); pointer-events: none;
+}
+.footer::before { left: var(--gutter); border-right: 0; border-bottom: 0; }
+.footer::after  { right: var(--gutter); border-left: 0; border-bottom: 0; }
+@media (max-width: 640px) { .footer::before, .footer::after { top: 34px; } }
