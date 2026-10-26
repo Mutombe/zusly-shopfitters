@@ -672,6 +672,90 @@
     });
   }
 
+  /* ---------------- In-text cross-linking ("solar wikipedia" style) ---------------- */
+  const XLINK = D.crossLinks || {};
+  const XKEYS = Object.keys(XLINK).sort((a, b) => b.length - a.length); // longest-match-first
+  const BOUND = /[\s,.:;!?()\-/"'‘’“”–—]/;
+
+  function xlinkHTML(entry, raw) {
+    const label = esc(raw);
+    const title = entry.desc ? ` title="${esc(entry.desc)}"` : "";
+    if (entry.href) {
+      return `<a class="xlink xlink--ext" href="${esc(entry.href)}" data-ext${title}>${label}<svg class="xlink__ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg></a>`;
+    }
+    return `<a class="xlink" href="${esc(entry.to)}"${title}>${label}</a>`;
+  }
+
+  // Convert known keywords in a PLAIN string into links. Returns escaped HTML.
+  function autoLink(text, opts) {
+    opts = opts || {};
+    const maxLinks = opts.maxLinks != null ? opts.maxLinks : 5;
+    const exclude = (opts.exclude || "").toLowerCase();
+    if (!text || !XKEYS.length) return esc(text || "");
+    const lower = text.toLowerCase();
+    const claimed = [];           // non-overlapping [start,end) spans already linked
+    const matches = [];
+    for (const key of XKEYS) {
+      if (matches.length >= maxLinks) break;
+      if (key === exclude) continue;
+      let from = 0, idx;
+      while ((idx = lower.indexOf(key, from)) !== -1) {
+        const end = idx + key.length;
+        const okBefore = idx === 0 || BOUND.test(text[idx - 1]);
+        const okAfter = end >= text.length || BOUND.test(text[end]);
+        const overlap = claimed.some((c) => idx < c[1] && end > c[0]);
+        if (okBefore && okAfter && !overlap) {
+          matches.push({ start: idx, end, raw: text.slice(idx, end), entry: XLINK[key] });
+          claimed.push([idx, end]);
+          break;                  // first occurrence only, per keyword
+        }
+        from = idx + 1;
+      }
+    }
+    if (!matches.length) return esc(text);
+    matches.sort((a, b) => a.start - b.start);
+    let out = "", cursor = 0;
+    for (const m of matches) {
+      out += esc(text.slice(cursor, m.start)) + xlinkHTML(m.entry, m.raw);
+      cursor = m.end;
+    }
+    return out + esc(text.slice(cursor));
+  }
+
+  function confirmExternal(url) {
+    let host = url;
+    try { host = new URL(url).host.replace(/^www\./, ""); } catch (_) {}
+    const prev = document.querySelector(".xtoast");
+    if (prev) prev.remove();
+    const t = document.createElement("div");
+    t.className = "xtoast";
+    t.setAttribute("role", "alertdialog");
+    t.innerHTML = `<p>Leaving <b>Zusly Projects</b> — taking you to <b>${esc(host)}</b></p>
+      <div class="xtoast__act"><button class="xtoast__cancel" type="button">Cancel</button><button class="xtoast__go" type="button">Proceed</button></div>`;
+    document.body.appendChild(t);
+    requestAnimationFrame(() => t.classList.add("is-in"));
+    let done = false;
+    const close = () => { clearTimeout(timer); t.classList.remove("is-in"); setTimeout(() => t.remove(), 300); };
+    const go = () => { if (done) return; done = true; window.open(url, "_blank", "noopener,noreferrer"); close(); };
+    t.querySelector(".xtoast__go").addEventListener("click", go);
+    t.querySelector(".xtoast__cancel").addEventListener("click", () => { done = true; close(); });
+    const timer = setTimeout(go, 4000);        // auto-proceed if ignored
+  }
+
+  function initCrossLinks() {
+    $$("[data-autolink]").forEach((el) => {
+      if (el.children.length) return;          // plain-text only — never clobber manual markup
+      const max = el.getAttribute("data-autolink-max");
+      el.innerHTML = autoLink(el.textContent, { exclude: el.getAttribute("data-autolink") || "", maxLinks: max ? +max : 5 });
+    });
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest("a.xlink--ext");
+      if (!a) return;
+      e.preventDefault();
+      confirmExternal(a.href);
+    });
+  }
+
   /* ---------------- Social links (rendered where [data-social] appears) ---------------- */
   function initSocial() {
     const nets = {
@@ -993,5 +1077,6 @@
   $$("[data-carousel]").forEach(initCarousel);
   initReveal();
   initCounters();
+  initCrossLinks();
   initFraming();
 })();

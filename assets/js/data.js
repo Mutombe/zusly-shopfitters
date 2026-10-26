@@ -40,6 +40,42 @@ window.ZUSLY = {
     { net: "youtube",   url: "" },
   ],
 
+  // Cross-link registry — one source of truth for in-text hyperlinks.
+  // keyword (lower-case) -> { to | href, label, category, desc }.
+  //   to    = internal path (same-site navigation)
+  //   href  = external URL (opens in a new tab after a confirm)
+  // Synonyms may point to the same target. autoLink() handles casing,
+  // word boundaries, longest-match-first, one-link-per-keyword and a cap.
+  crossLinks: {
+    "steel structures":        { to: "services.html#steel-structures", label: "Steel Structures", category: "service", desc: "Portal-frame warehouses, sheds and industrial steel." },
+    "steel sheds":             { to: "services.html#steel-structures", label: "Steel Sheds", category: "service" },
+    "sheds and warehouses":    { to: "services.html#steel-structures", label: "Sheds & Warehouses", category: "service" },
+    "warehouses":              { to: "services.html#steel-structures", label: "Warehouses", category: "service" },
+    "warehouse":               { to: "services.html#steel-structures", label: "Warehouse", category: "service" },
+    "curtain walls":           { to: "projects.html?cat=Curtain+Walls", label: "Curtain Walls", category: "service", desc: "Structural glass facades on aluminium framing." },
+    "curtain wall":            { to: "projects.html?cat=Curtain+Walls", label: "Curtain Wall", category: "service" },
+    "windows and doors":       { to: "projects.html?cat=Windows+%26+Doors", label: "Windows & Doors", category: "service" },
+    "cladding":                { to: "projects.html?cat=Cladding+%26+Fascia", label: "Cladding", category: "service" },
+    "skylights":               { to: "projects.html?cat=Skylights", label: "Skylights", category: "service" },
+    "pergolas":                { to: "projects.html?cat=Pergolas+%26+Louvres", label: "Pergolas", category: "service" },
+    "balustrades":             { to: "projects.html?cat=Glass+Partitions", label: "Balustrades", category: "service" },
+    "glass partitions":        { to: "projects.html?cat=Glass+Partitions", label: "Glass Partitions", category: "service" },
+    "architectural glazing":   { to: "services.html", label: "Architectural Glazing", category: "service" },
+    "glazing":                 { to: "services.html", label: "Glazing", category: "service" },
+    "aluminium":               { to: "services.html", label: "Aluminium", category: "service" },
+    "design and build":        { to: "services.html", label: "Design & Build", category: "service" },
+    "design-and-build":        { to: "services.html", label: "Design & Build", category: "service" },
+    "design & build":          { to: "services.html", label: "Design & Build", category: "service" },
+    "quantity surveyors":      { to: "careers.html", label: "Quantity Surveyors", category: "team" },
+    "estimators":              { to: "careers.html", label: "Estimators", category: "team" },
+    "careers":                 { to: "careers.html", label: "Careers", category: "page" },
+    "vacancies":               { to: "careers.html", label: "Vacancies", category: "page" },
+    "site survey":             { to: "contact.html", label: "Site Survey", category: "page" },
+    "request a quote":         { to: "contact.html", label: "Request a Quote", category: "page" },
+    "ipec":                    { href: "https://www.ipec.co.zw", label: "IPEC", category: "external", desc: "Insurance & Pensions Commission of Zimbabwe." },
+    "harare":                  { href: "https://en.wikipedia.org/wiki/Harare", label: "Harare", category: "external", desc: "Capital city of Zimbabwe." },
+  },
+
   // "How we work" - shown on the home page and every project page
   journey: [
     { img: "istock-aluminium-door.jpg",                                 title: "Consultation & Survey", text: "A site visit and measure-up. We assess structure, light and intent before a line is drawn." },

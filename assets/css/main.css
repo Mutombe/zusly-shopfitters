@@ -1610,6 +1610,42 @@ main { overflow-x: clip; }
 .role__apply i { font-size: 14px; }
 @media (max-width: 760px) { .roles { grid-template-columns: 1fr; } }
 
+/* ---------- In-text cross-links (autoLink) ---------- */
+a.xlink {
+  color: var(--brand);
+  text-decoration: underline; text-decoration-style: dotted;
+  text-decoration-thickness: 1px; text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--brand) 60%, transparent);
+  border-radius: 3px; padding: 0 1px;
+  transition: color .2s var(--ease), background .2s var(--ease), text-decoration-color .2s var(--ease), text-decoration-thickness .2s var(--ease);
+}
+a.xlink:hover {
+  color: var(--brand-hover);
+  text-decoration-style: solid; text-decoration-thickness: 2px;
+  text-decoration-color: var(--brand-hover);
+  background: color-mix(in srgb, var(--brand) 9%, transparent);
+}
+.xlink__ico { width: 11px; height: 11px; margin-left: 2px; vertical-align: -1px; display: inline-block; }
+
+/* External-exit confirmation toast */
+.xtoast {
+  position: fixed; left: 50%; bottom: 26px; transform: translate(-50%, 16px);
+  z-index: 2200; width: 420px; max-width: calc(100vw - 32px);
+  background: var(--dark); color: #fff; border-radius: 12px;
+  padding: 16px 18px; box-shadow: 0 20px 50px rgba(0, 0, 0, .3);
+  opacity: 0; transition: opacity .3s var(--ease), transform .3s var(--ease);
+}
+.xtoast.is-in { opacity: 1; transform: translate(-50%, 0); }
+.xtoast p { font-size: 13.5px; line-height: 1.5; margin-bottom: 12px; }
+.xtoast p b { font-weight: 700; }
+.xtoast__act { display: flex; justify-content: flex-end; gap: 10px; }
+.xtoast__act button { height: 36px; padding: 0 16px; border-radius: 6px; font-size: 13px; font-weight: 600; transition: background .2s, color .2s; }
+.xtoast__cancel { color: rgba(255, 255, 255, .75); }
+.xtoast__cancel:hover { color: #fff; background: rgba(255, 255, 255, .12); }
+.xtoast__go { background: var(--brand); color: #fff; }
+.xtoast__go:hover { background: var(--brand-hover); }
+@media (prefers-reduced-motion: reduce) { .xtoast { transition: opacity .2s linear; } }
+
 /* ---------- Social links (footer) ---------- */
 .social { display: flex; gap: 10px; margin-top: 20px; }
 .social__link {
