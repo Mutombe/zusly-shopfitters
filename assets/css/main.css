@@ -1066,6 +1066,11 @@ main { overflow-x: clip; }
 @media (max-width: 900px) {
   .navsearch { display: inline-flex; }
   .header__ctrl { display: flex; }
+  /* Desktop cluster wrapper has no visible content on mobile; drop it so the
+     grid keeps logo and the search/menu controls on one aligned row. */
+  .header__right { display: none; }
+  .header__bar { grid-template-columns: 1fr auto; }
+  .header__logo { display: inline-flex; align-items: center; }
 }
 
 /* ==========================================================================
@@ -1493,4 +1498,5 @@ main { overflow-x: clip; }
 .topnav__right .navcluster__meta b { color: #fff; }
 .header__right { display: flex; align-items: center; justify-content: flex-end; gap: 20px; }
 .header__right .navcluster .avstack .av { border-color: #fff; }
+@media (max-width: 900px) { .header__right { display: none; } }
 @media (max-width: 900px) { .navcluster { display: none !important; } }

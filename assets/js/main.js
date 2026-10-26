@@ -701,6 +701,97 @@
     sync();
   }
 
+  /* ---------------- Focal-point image framing ----------------
+     Each listed photo declares a subject box [L,T,R,B] as % of the native
+     image: the glazed structure that must stay visible and clear of overlays.
+     The engine picks the object-position that keeps that box in frame and off
+     the badges / caption bars, recomputed for the real frame on screen. */
+  const FOCUS = {
+    "istock-aluminium-door.jpg": [28, 10, 72, 90],
+    "482032362_1186614916799945_2651704115299276547_n.jpg": [20, 8, 80, 70],
+    "MG_8868-1024x683.jpg": [6, 34, 94, 78],
+    "MG_8871-1024x683.jpg": [6, 16, 94, 86],
+    "IMG_6209-1024x771.jpg": [22, 26, 78, 82],
+    "20250201_165511-1024x768.jpg": [30, 26, 78, 82],
+    "20241212_113455-1024x576.jpg": [30, 30, 84, 82],
+    "398041177_825967209531386_4498533107683134640_n.jpg": [24, 28, 72, 72],
+    "480728001_1186615213466582_21083941017618833_n_2.jpg": [14, 14, 86, 86],
+    "20250224_170625-1024x768.jpg": [44, 32, 88, 78],
+    "20241212_113315-576x1024.jpg": [24, 14, 82, 66],
+    "MG_8873-1024x683.jpg": [10, 20, 90, 82],
+    "WhatsApp-Image-2025-04-09-at-8.02.08-PM.jpeg": [10, 40, 90, 86],
+    "436305841_959261962868576_399061018664639223_n.jpg": [30, 6, 96, 44],
+    "7669f7bb1637b33d4edcd8cbca73df01-1024x768.jpg": [14, 10, 82, 90],
+    "20250201_182842-1024x768.jpg": [20, 34, 80, 82],
+  };
+  // Small opaque overlays the subject must dodge. The hero caption is a
+  // full-width translucent gradient (a designed component), so it is not here.
+  const FOCUS_OBSTACLES = ".cardtag, .pitem__status, .hero-img__status";
+
+  function frameImage(img) {
+    const box = img._focus;
+    if (!box) return;
+    const fw = img.clientWidth, fh = img.clientHeight;
+    const nw = img.naturalWidth, nh = img.naturalHeight;
+    if (!fw || !fh || !nw || !nh) return;
+    const scale = Math.max(fw / nw, fh / nh);
+    const rw = nw * scale, rh = nh * scale;
+    const ox = rw - fw, oy = rh - fh;
+    const sL = box[0] / 100 * rw, sT = box[1] / 100 * rh, sR = box[2] / 100 * rw, sB = box[3] / 100 * rh;
+    const subA = Math.max(1, (sR - sL) * (sB - sT));
+    const fr = img.getBoundingClientRect();
+    const obs = [];
+    const host = img.closest(".card__media, .pitem__media, .hero-img, .flead__media") || img.parentElement;
+    host && host.querySelectorAll(FOCUS_OBSTACLES).forEach((o) => {
+      const r = o.getBoundingClientRect();
+      obs.push({ l: r.left - fr.left, t: r.top - fr.top, r: r.right - fr.left, b: r.bottom - fr.top });
+    });
+    const N = 22;
+    const xs = ox > 1 ? N : 0, ys = oy > 1 ? N : 0;
+    let bx = 0.5, by = 0.5, bestCost = Infinity;
+    for (let i = 0; i <= xs; i++) {
+      for (let j = 0; j <= ys; j++) {
+        const px = xs ? i / xs : 0.5, py = ys ? j / ys : 0.5;
+        const offX = px * ox, offY = py * oy;
+        const l = sL - offX, t = sT - offY, r = sR - offX, b = sB - offY;
+        const inA = Math.max(0, Math.min(r, fw) - Math.max(l, 0)) * Math.max(0, Math.min(b, fh) - Math.max(t, 0));
+        const outside = subA - inA;
+        let covered = 0;
+        for (let k = 0; k < obs.length; k++) {
+          const o = obs[k];
+          covered += Math.max(0, Math.min(r, o.r) - Math.max(l, o.l)) * Math.max(0, Math.min(b, o.b) - Math.max(t, o.t));
+        }
+        const cx = (l + r) / 2 / fw - 0.5, cy = (t + b) / 2 / fh - 0.5;
+        const cost = 1000 * (outside + covered) + (cx * cx + cy * cy) * subA;
+        if (cost < bestCost) { bestCost = cost; bx = px; by = py; }
+      }
+    }
+    img.style.objectPosition = `${(bx * 100).toFixed(1)}% ${(by * 100).toFixed(1)}%`;
+  }
+
+  function initFraming() {
+    $$("img").forEach((img) => {
+      if (img._focus !== undefined) return;
+      img._focus = FOCUS[(img.getAttribute("src") || "").split("/").pop().split("?")[0]] || null;
+    });
+    const runAll = () => $$("img").forEach((img) => img._focus && frameImage(img));
+    $$("img").forEach((img) => {
+      if (!img._focus) return;
+      if (img.complete && img.naturalWidth) frameImage(img);
+      else img.addEventListener("load", () => frameImage(img), { once: true });
+    });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(runAll);
+    setTimeout(runAll, 1200);
+    let t; window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(runAll, 120); }, { passive: true });
+    // Frame lazy images as they approach the viewport (below-the-fold cards).
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver((ents) => {
+        ents.forEach((e) => { if (e.isIntersecting && e.target.complete && e.target.naturalWidth) frameImage(e.target); });
+      }, { rootMargin: "250px" });
+      $$("img").forEach((img) => { if (img._focus) io.observe(img); });
+    }
+  }
+
   fillCompany();
   initNav();
   initWhatsApp();
@@ -713,4 +804,5 @@
   $$("select").forEach(initSelect);
   $$("[data-carousel]").forEach(initCarousel);
   initReveal();
+  initFraming();
 })();
