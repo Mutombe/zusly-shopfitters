@@ -36,6 +36,26 @@
     { img: "designs/design-pivot-door.png",        no: "D-06", name: "Pivot Door",           text: "Centre-hung pivot leaf detailed for a clean, frameless reveal." },
   ];
 
+  // Accent colour per category / service — "colourful" cards, kept architectural
+  const ACCENTS = ["#1f6fb2", "#F26603", "#1f8f93", "#a86a2c", "#3f8456", "#4a5bbf"];
+  const CAT_COLOR = {
+    "Curtain Walls": "#1f6fb2",
+    "Skylights": "#1f8f93",
+    "Pergolas & Louvres": "#3f8456",
+    "Windows & Doors": "#F26603",
+    "Cladding & Fascia": "#a86a2c",
+    "Glass Partitions": "#4a5bbf",
+    "Decking": "#6b7a48",
+  };
+  const catColor = (c) => CAT_COLOR[c] || "#003D70";
+
+  // Artful architectural tag badge for the top-left of media cards
+  const tagBadge = (cat, year) => `
+    <div class="cardtag" aria-hidden="true">
+      <span class="cardtag__cat">${esc(cat)}</span>
+      <span class="cardtag__yr">${esc(year)}</span>
+    </div>`;
+
   /* ---------------- Mobile drawer ---------------- */
   function initNav() {
     const burger = $(".burger");
@@ -90,20 +110,21 @@
 
   /* ---------------- Landing ---------------- */
   function cardHTML(p) {
-    return `<a class="card reveal" href="project.html?p=${p.slug}">
+    return `<a class="card reveal" href="project.html?p=${p.slug}" style="--accent:${catColor(p.cat)}">
       <div class="card__media"><img src="${img(p.img)}" alt="${esc(p.name)}" loading="lazy" width="1024" height="768">
-        <div class="card__tags"><span class="pill pill--glass">${esc(p.cat)}</span><span class="pill pill--glass">${esc(p.year)}</span></div></div>
+        ${tagBadge(p.cat, p.year)}</div>
       <div class="card__body">
-        <div class="card__top"><h3 class="card__name">${esc(p.name)}</h3></div>
-        <p class="card__area">${esc(p.location)}, ${esc(D.company.city)}</p>
-        <div class="card__specs"><span>${ICON.tag}${esc(p.cat)}</span><span>${ICON.cal}${esc(p.year)}</span></div>
+        <div class="card__top"><h3 class="card__name">${esc(p.name)}</h3>
+          <span class="card__go" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 8h12M9 3l5 5-5 5"/></svg></span></div>
+        <p class="card__area">${ICON.pin}${esc(p.location)}, ${esc(D.company.city)}</p>
+        <div class="card__specs"><span class="chip chip--cat">${esc(p.cat)}</span><span class="chip chip--yr">${ICON.cal}${esc(p.year)}</span></div>
       </div></a>`;
   }
 
   function leadHTML(p) {
-    return `<a class="flead" href="project.html?p=${p.slug}">
+    return `<a class="flead" href="project.html?p=${p.slug}" style="--accent:${catColor(p.cat)}">
       <div class="flead__media"><img src="${img(p.img)}" alt="${esc(p.name)}" loading="lazy" width="1024" height="768">
-        <div class="card__tags"><span class="pill pill--glass">${esc(p.cat)}</span><span class="pill pill--glass">${esc(p.year)}</span></div></div>
+        ${tagBadge(p.cat, p.year)}</div>
       <div class="flead__body">
         <span class="flead__kicker">Featured project</span>
         <h3 class="flead__name">${esc(p.name)}</h3>
@@ -351,13 +372,13 @@
   function initServices() {
     const wrap = $("#svcList");
     if (!wrap) return;
-    wrap.innerHTML = D.services.map((s) => `
-      <article class="svc__item reveal">
-        <span class="label">№${s.no}</span>
-        <div>
+    wrap.innerHTML = D.services.map((s, i) => `
+      <article class="svc__item reveal" style="--accent:${ACCENTS[i % ACCENTS.length]}">
+        <span class="label svc__no">№${esc(s.no)}</span>
+        <div class="svc__text">
           <h3>${esc(s.name)}</h3>
           <p>${esc(s.long)}</p>
-          <ul>${s.features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
+          <ul class="svc__feats">${s.features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
         </div>
         <a class="svc__media" href="projects.html" aria-label="${esc(s.name)} projects"><img src="${img(s.img)}" alt="${esc(s.name)}" loading="lazy"></a>
       </article>`).join("");
@@ -379,7 +400,8 @@
     const story = $("#story");
     if (story) story.innerHTML = D.story.map((para) => `<p class="lead">${esc(para)}</p>`).join("");
     const clients = $("#clients");
-    if (clients) clients.innerHTML = D.clients.map((c) => `<span>${esc(c)}</span>`).join("");
+    if (clients) clients.innerHTML = (D.clientLogos || []).map((c) => `
+      <span class="client-logo"><img src="assets/img/clients/${esc(c.file)}" alt="${esc(c.name)}" loading="lazy"></span>`).join("");
   }
 
   /* ---------------- Contact form → email / WhatsApp ---------------- */
