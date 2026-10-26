@@ -600,6 +600,63 @@
     });
   }
 
+  function initCareers() {
+    const f = $("#careersForm");
+    if (!f) return;
+    const el = (n) => f.elements[n];
+    const hr = D.company.hr || {};
+    const hrNum = (hr.whatsapp || "").replace(/\D/g, "");
+    const hrMail = hr.email || D.company.email;
+    const vacs = D.vacancies || [];
+    const list = $("#roleList");
+    if (list) {
+      list.innerHTML = vacs.map((v) => `
+        <article class="role reveal">
+          <div class="role__head">
+            <h3 class="role__title">${esc(v.role)}</h3>
+            <span class="role__type">${esc(v.type || "Full-time")}</span>
+          </div>
+          <p class="role__sum">${esc(v.summary || "")}</p>
+          <div class="role__meta">
+            <span><i class="ph-duotone ph-map-pin" aria-hidden="true"></i> ${esc(v.location || D.company.city)}</span>
+            <button class="role__apply" type="button" data-role="${esc(v.role)}">Apply <i class="ph-duotone ph-arrow-right" aria-hidden="true"></i></button>
+          </div>
+        </article>`).join("");
+    }
+    const sel = el("role");
+    sel.innerHTML = vacs.map((v) => opt(v.role, v.role, "")).join("") + opt("Open application", "Open application", "");
+    $$(".role__apply", list).forEach((b) => b.addEventListener("click", () => {
+      sel.value = b.dataset.role;
+      const target = document.getElementById("apply");
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      el("name").focus({ preventScroll: true });
+    }));
+
+    const validate = () => {
+      let ok = true;
+      $$("[required]", f).forEach((inp) => {
+        const err = inp.parentElement.querySelector(".err");
+        const bad = !inp.value.trim() || (inp.type === "email" && !/^\S+@\S+\.\S+$/.test(inp.value));
+        if (err) err.textContent = bad ? (inp.type === "email" && inp.value ? "Please enter a valid email." : "This field is required.") : "";
+        inp.setAttribute("aria-invalid", String(bad));
+        if (bad && ok) { inp.focus(); ok = false; }
+      });
+      return ok;
+    };
+    const body = () => `Role: ${sel.value}\nName: ${el("name").value}\nPhone: ${el("phone").value}\nEmail: ${el("email").value}\nExperience: ${el("years").value || "—"} years\n\n${el("message").value}`;
+
+    f.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (!validate()) return;
+      location.href = `mailto:${hrMail}?subject=${encodeURIComponent("Job application: " + sel.value)}&body=${encodeURIComponent(body())}`;
+    });
+    const wa = $("#applyWa");
+    if (wa) wa.addEventListener("click", () => {
+      if (!validate()) return;
+      window.open(`https://wa.me/${hrNum}?text=${encodeURIComponent("Job application\n\n" + body())}`, "_blank", "noopener");
+    });
+  }
+
   /* ---------------- Company details anywhere on the page ---------------- */
   function fillCompany() {
     $$("[data-co]").forEach((el) => {
@@ -611,6 +668,13 @@
     });
     $$("[data-tel]").forEach((el) => (el.href = "tel:" + D.company.phone.replace(/\s/g, "")));
     $$("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
+    const hr = D.company.hr || {};
+    $$("[data-hr]").forEach((el) => {
+      const k = el.dataset.hr;
+      if (k === "whatsapp") { const n = (hr.whatsapp || "").replace(/\D/g, ""); el.textContent = hr.phone || ("+" + n); el.href = `https://wa.me/${n}`; }
+      else if (k === "email") { el.textContent = hr.email || ""; el.href = "mailto:" + (hr.email || ""); }
+      else if (k === "phone") { el.textContent = hr.phone || ""; el.href = "tel:" + (hr.phone || "").replace(/\s/g, ""); }
+    });
   }
 
   /* ---------------- Floating WhatsApp button ---------------- */
@@ -835,6 +899,7 @@
   if (page === "services") initServices();
   if (page === "about") initAbout();
   if (page === "contact") initContact();
+  if (page === "careers") initCareers();
   $$("select").forEach(initSelect);
   $$("[data-carousel]").forEach(initCarousel);
   initReveal();

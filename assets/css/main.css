@@ -1541,3 +1541,25 @@ main { overflow-x: clip; }
 .header__right .navcluster .avstack .av { border-color: #fff; }
 @media (max-width: 900px) { .header__right { display: none; } }
 @media (max-width: 900px) { .navcluster { display: none !important; } }
+
+/* ==========================================================================
+   Careers / vacancies
+   ========================================================================== */
+.roles { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.role {
+  display: flex; flex-direction: column; gap: 12px;
+  border: 1px solid var(--line-2); background: #fff; padding: 26px 26px 18px;
+  transition: transform var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease);
+}
+@media (hover: hover) { .role:hover { transform: translateY(-4px); box-shadow: 0 16px 38px rgba(0, 30, 60, .08); border-color: #cdd4dc; } }
+.role__head { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; }
+.role__title { font-family: var(--wide); font-weight: 700; font-size: 19px; line-height: 1.15; letter-spacing: -.01em; }
+.role__type { font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase; font-weight: 600; color: var(--brand); white-space: nowrap; }
+.role__sum { flex: 1; font-size: 14px; line-height: 1.6; color: #555; }
+.role__meta { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 2px; padding-top: 14px; border-top: 1px solid var(--line); }
+.role__meta > span { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #777; }
+.role__meta i { color: var(--brand); }
+.role__apply { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; font-weight: 600; color: var(--dark); transition: gap var(--dur-2) var(--ease), color var(--dur-1); }
+.role__apply:hover { gap: 12px; color: var(--brand); }
+.role__apply i { font-size: 14px; }
+@media (max-width: 760px) { .roles { grid-template-columns: 1fr; } }

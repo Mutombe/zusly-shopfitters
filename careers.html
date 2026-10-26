@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Careers, Zusly Projects</title>
+  <meta name="description" content="Join Zusly Projects, a Design & Build firm in Harare. Apply for structural steel, fabrication, installation, quantity surveying and estimating roles via WhatsApp or email to HR.">
+  <link rel="icon" type="image/png" href="assets/img/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/fonts/ddinpro-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/ddinpro-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/duotone/style.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body data-page="careers" class="inner">
+
+  <header class="header">
+    <div class="wrap">
+      <div class="header__bar">
+        <a class="header__logo" href="index.html" aria-label="Zusly home"><img src="assets/img/logo.png" alt="Zusly"></a>
+        <nav class="header__nav" aria-label="Main">
+          <a href="index.html">Home</a>
+          <a href="projects.html">Projects</a>
+          <a href="services.html">Services</a>
+          <a href="about.html">About</a>
+          <a href="careers.html" aria-current="page">Careers</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <span class="header__loc"><i class="ph-duotone ph-map-pin" aria-hidden="true"></i> Harare, ZW</span>
+        <div class="header__ctrl">
+          <a class="navsearch" href="projects.html" aria-label="Search projects"><i class="ph-duotone ph-magnifying-glass" aria-hidden="true"></i></a>
+          <button class="burger" aria-expanded="false" aria-label="Menu"><span></span><span></span></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span>Careers</span></nav>
+
+    <div class="pagehead pagehead--solo">
+      <h1 class="title-wide">Build With Us</h1>
+    </div>
+    <p class="page-intro">Zusly Projects is a Design &amp; Build firm. We hire people who take pride in structural integrity, precision and craftsmanship, from the workshop floor to the design office. Browse the open roles below and apply in one tap, by WhatsApp or email to our HR team.</p>
+
+    <!-- Open roles (rendered from data.js vacancies) -->
+    <section id="rolesSec" style="margin-top:70px">
+      <div class="row__head" style="margin-bottom:28px">
+        <h2 class="h-wide">Open roles</h2>
+        <span class="label">Apply via HR</span>
+      </div>
+      <div class="roles" id="roleList"></div>
+    </section>
+
+    <!-- Application -->
+    <section class="split" id="apply" style="margin-top:96px">
+      <div>
+        <h2 class="h-wide" style="margin-bottom:24px">How to apply</h2>
+        <p class="lead" style="margin-bottom:28px">Fill in the short form and send it straight to HR on WhatsApp or by email. Attach your CV to the email or the WhatsApp chat once it opens.</p>
+        <dl class="spec" style="margin-bottom:34px">
+          <div><dt>HR WhatsApp</dt><dd><a data-hr="whatsapp" href="#" target="_blank" rel="noopener"></a></dd></div>
+          <div><dt>HR Email</dt><dd><a data-hr="email" href="#"></a></dd></div>
+          <div><dt>Location</dt><dd data-co="address"></dd></div>
+          <div><dt>Hours</dt><dd data-co="hours"></dd></div>
+        </dl>
+        <p class="label" style="color:#8c8c8c">We review every application. If your skills fit a current or upcoming project, HR will be in touch.</p>
+      </div>
+
+      <div>
+        <h2 class="h-wide" style="margin-bottom:30px">Application</h2>
+        <form id="careersForm" class="form" novalidate>
+          <div class="field"><label for="aName">Full name</label><input id="aName" name="name" autocomplete="name" required><span class="err"></span></div>
+          <div class="field"><label for="aPhone">Phone</label><input id="aPhone" name="phone" type="tel" autocomplete="tel" required><span class="err"></span></div>
+          <div class="field"><label for="aEmail">Email</label><input id="aEmail" name="email" type="email" autocomplete="email" required><span class="err"></span></div>
+          <div class="field"><label for="aRole">Role</label><select id="aRole" name="role"></select><span class="err"></span></div>
+          <div class="field"><label for="aYears">Years of experience</label><input id="aYears" name="years" type="text" inputmode="numeric" autocomplete="off"><span class="err"></span></div>
+          <div class="field full"><label for="aMsg">Why you? (and link to CV, if you have one)</label><textarea id="aMsg" name="message" placeholder="A few lines on your trade, the work you've done, and when you can start. Attach your CV when the email or WhatsApp opens." required></textarea><span class="err"></span></div>
+          <div class="form__foot full">
+            <p>Your details are sent to HR. Remember to attach your CV in the email or WhatsApp chat that opens.</p>
+            <div class="cta__actions" style="gap:12px">
+              <button class="btn btn--dark" type="button" id="applyWa"><i class="ph-duotone ph-whatsapp-logo" aria-hidden="true"></i> Apply on WhatsApp</button>
+              <button class="btn" type="submit">Apply by email</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer has-deco">
+    <span class="deco deco--corners deco--at-footer" aria-hidden="true"></span>
+    <div class="footer__top">
+      <div class="footer__brand">
+        <img src="assets/img/logo-orange-white.png" alt="Zusly Projects">
+        <p>Design &amp; Build: structural steel, sheds and warehouses, curtain walls, cladding, windows, doors and glazing.</p>
+      </div>
+      <div><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="careers.html">Careers</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><h4>Work</h4><ul><li><a href="projects.html?cat=Curtain+Walls">Curtain Walls</a></li><li><a href="projects.html?cat=Windows+%26+Doors">Windows &amp; Doors</a></li><li><a href="projects.html?cat=Skylights">Skylights</a></li></ul></div>
+      <div><h4>Contact</h4><ul><li><a data-co="phone" href="#">Phone</a></li><li><a data-co="email" href="#">Email</a></li><li><span data-co="address" style="font-size:14.5px"></span></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span>© <span data-year></span> Zusly Projects. All rights reserved.</span><span data-co="location"></span></div>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -218,6 +218,15 @@ window.ZUSLY = {
     { label: "03 / Delivered", title: "One team, start to finish",  desc: "A single accountable team carries each project from first drawing to the final walkthrough." },
   ],
 
+  // Careers — edit this list to change open roles shown on careers.html
+  vacancies: [
+    { role: "Structural Steel Fabricator",   type: "Full-time", location: "Logan Park, Harare", summary: "Cut, fit and weld structural steel for sheds, warehouses and canopies to fabrication drawings." },
+    { role: "Site Installer / Rigger",        type: "Full-time", location: "Site-based, Harare", summary: "Erect steel frames and install glazing and cladding on site, safely and to tolerance." },
+    { role: "Aluminium & Glazing Fabricator", type: "Full-time", location: "Logan Park, Harare", summary: "Fabricate windows, doors, curtain walls and balustrades from aluminium profiles and glass." },
+    { role: "Quantity Surveyor",              type: "Full-time", location: "Harare",             summary: "Measure, cost and value design-and-build work; prepare BoQs and transparent client quotations." },
+    { role: "Project Estimator",              type: "Full-time", location: "Harare",             summary: "Price enquiries from drawings, size materials and labour, and turn tenders around quickly." },
+  ],
+
   stats: [
     { value: "150+",  label: "Projects delivered" },
     { value: "8",     label: "Years in service" },
