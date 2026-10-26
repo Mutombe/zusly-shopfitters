@@ -22,10 +22,25 @@ window.ZUSLY = {
 
   // "How we work" — shown on the home page and every project page
   journey: [
-    { img: "clay-banks-Itg6WGOAJaY-unsplash.jpg", title: "Consultation & Survey", text: "A site visit and measure-up. We assess structure, light and intent before a line is drawn." },
-    { img: "20241213_140439_01-1024x768.jpg",      title: "Design & Quotation",   text: "Detailed drawings, 3D visuals and a transparent, itemised quote — no hidden costs." },
-    { img: "clay-banks-DYJY3Sm8s80-unsplash.jpg",  title: "Fabrication & QC",     text: "Every profile and panel is precision-cut in our Logan Park workshop and inspected." },
-    { img: "MG_8871-1024x683.jpg",                 title: "Installation & Handover", text: "Clean on-site fitting to millimetre accuracy, then a full walkthrough before we hand over." },
+    { img: "istock-aluminium-door.jpg",                                 title: "Consultation & Survey", text: "A site visit and measure-up. We assess structure, light and intent before a line is drawn." },
+    { img: "482032362_1186614916799945_2651704115299276547_n.jpg",      title: "Design & Quotation",   text: "Detailed drawings, 3D visuals and a transparent, itemised quote — no hidden costs." },
+    { img: "MG_8868-1024x683.jpg",                                      title: "Fabrication & QC",     text: "Every profile and panel is precision-cut in our Logan Park workshop and inspected." },
+    { img: "MG_8871-1024x683.jpg",                                      title: "Installation & Handover", text: "Clean on-site fitting to millimetre accuracy, then a full walkthrough before we hand over." },
+  ],
+
+  // Client logos for the hero marquee (files in /assets/img/clients/)
+  clientLogos: [
+    { file: "ipec.png",         name: "Insurance & Pensions Commission" },
+    { file: "old-mutual.png",   name: "Old Mutual" },
+    { file: "puma.png",         name: "Puma Energy" },
+    { file: "zimre.png",        name: "Zimre Holdings" },
+    { file: "cbz.png",          name: "CBZ" },
+    { file: "nbs.png",          name: "National Building Society" },
+    { file: "fbc.png",          name: "FBC Holdings" },
+    { file: "seasec.png",       name: "Seasec Security" },
+    { file: "knight-frank.webp", name: "Knight Frank" },
+    { file: "pearl.webp",       name: "Pearl Properties" },
+    { file: "manah.png",        name: "Manah Building Construction" },
   ],
 
   services: [
@@ -77,10 +92,10 @@ window.ZUSLY = {
     {
       slug: "ipec-hq", no: "01", name: "Insurance & Pensions Commission HQ",
       cat: "Curtain Walls", status: "Featured", year: "2024", location: "Harare CBD",
-      img: "434582689_931913305603442_5044669846016545401_n.jpg",
+      img: "MG_8871-1024x683.jpg",
       summary: "Complete curtain-wall renovation of the IPEC headquarters — a full glass facade with reflective aluminium-framed glazing that transformed the building's street presence and brought modern thermal performance to a landmark Harare address.",
       scope: ["Curtain-wall glazing", "Aluminium framing", "Weather sealing", "Facade renovation"],
-      gallery: ["434582689_931913305603442_5044669846016545401_n.jpg", "MG_8871-1024x683.jpg", "MG_8873-1024x683.jpg"],
+      gallery: ["MG_8871-1024x683.jpg", "MG_8873-1024x683.jpg", "MG_8881-1024x683.jpg"],
     },
     {
       slug: "pyramidal-skylight", no: "02", name: "Pyramidal Glass Skylight",
@@ -117,10 +132,10 @@ window.ZUSLY = {
     {
       slug: "curtain-wall-shopfront", no: "06", name: "Reflective Curtain Wall Shopfront",
       cat: "Curtain Walls", status: "Completed", year: "2024", location: "Harare",
-      img: "MG_8871-1024x683.jpg",
+      img: "MG_8873-1024x683.jpg",
       summary: "A large-scale reflective curtain wall on a commercial shopfront — floor-to-ceiling glass with aluminium mullions, maximising daylight while controlling solar gain.",
       scope: ["Reflective glazing", "Aluminium mullions", "Shopfront system", "Solar control"],
-      gallery: ["MG_8871-1024x683.jpg", "MG_8868-1024x683.jpg", "MG_8881-1024x683.jpg"],
+      gallery: ["MG_8873-1024x683.jpg", "MG_8868-1024x683.jpg", "MG_8881-1024x683.jpg"],
     },
     {
       slug: "folding-doors-residence", no: "07", name: "Luxury Residence Folding Doors",
@@ -152,7 +167,7 @@ window.ZUSLY = {
       img: "436305841_959261962868576_399061018664639223_n.jpg",
       summary: "Aluminium sectional garage doors with frosted glass panel inserts — clean modern lines and smooth automated operation that lift the kerb appeal of the whole property.",
       scope: ["Sectional garage doors", "Glass panel inserts", "Automated motors", "Triple installation"],
-      gallery: ["436305841_959261962868576_399061018664639223_n.jpg", "5929032847404942442_121-576x1024.jpg"],
+      gallery: ["436305841_959261962868576_399061018664639223_n.jpg", "434582689_931913305603442_5044669846016545401_n.jpg", "5929032847404942442_121-576x1024.jpg"],
     },
     {
       slug: "privacy-screen", no: "11", name: "Aluminium Vertical Slat Screen",

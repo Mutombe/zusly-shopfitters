@@ -106,6 +106,13 @@
         <div class="step__body${dark ? " has-deco" : ""}">${deco}<span class="step__no">0${i + 1}</span><div><h3>${esc(j.title)}</h3><p>${esc(j.text)}</p></div></div>
       </article>`;
     }).join("");
+
+    const logos = $("#heroLogos");
+    if (logos && D.clientLogos) {
+      const one = D.clientLogos.map((c) =>
+        `<span class="logo-chip"><img src="assets/img/clients/${c.file}" alt="${esc(c.name)}" loading="lazy"></span>`).join("");
+      logos.innerHTML = one + one;   // two copies → seamless infinite scroll
+    }
   }
 
   /* ---------------- Projects list ---------------- */
