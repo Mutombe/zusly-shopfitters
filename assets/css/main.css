@@ -1,6 +1,6 @@
 /* ==========================================================================
    Zusly Shopfitters & Projects
-   Architectural aluminium & glazing studio — Harare, Zimbabwe
+   Architectural aluminium & glazing studio - Harare, Zimbabwe
    Landing page  → full-bleed hero, pills, soft/navy cards
    Inner pages   → ruled header, wide display type, spec tables
    Palette: deep navy (#003D70) · Zusly orange (#F26603) · paper white
@@ -17,9 +17,9 @@
   --paper: #f8f8f7;
   --white: #ffffff;
 
-  --dark: #002b52;            /* Zusly deep navy — large dark surfaces */
-  --logo-red: #F26603;        /* Zusly orange — small accents only */
-  --brand: #F26603;           /* Zusly orange — buttons */
+  --dark: #002b52;            /* Zusly deep navy - large dark surfaces */
+  --logo-red: #F26603;        /* Zusly orange - small accents only */
+  --brand: #F26603;           /* Zusly orange - buttons */
   --brand-hover: #d4540a;
 
   --sans: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
@@ -96,7 +96,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 
 /* ==========================================================================
-   LANDING — Dwella
+   LANDING - Dwella
    ========================================================================== */
 
 /* ---------- Top nav (over hero) ---------- */
@@ -161,9 +161,14 @@ ul { margin: 0; padding: 0; list-style: none; }
   margin-top: 52px;
 }
 .search__field { display: flex; flex-direction: column; gap: 8px; }
-.search__field:nth-child(1) { width: 122px; }
-.search__field:nth-child(2) { width: 166px; }
-.search__field:nth-child(3) { width: 262px; }
+.search__field:nth-child(1) { width: 140px; }
+.search__field:nth-child(2) { width: 184px; }
+.search__field:nth-child(3) { width: 272px; }
+/* Healthy spacing + hairline divider between the hero dropdowns */
+.search__field + .search__field {
+  margin-left: 26px; padding-left: 26px;
+  border-left: 1px solid rgba(255, 255, 255, .2);
+}
 .search__label { font-size: 15px; font-weight: 500; color: #fff; }
 .search__select { position: relative; }
 .search__select select {
@@ -301,7 +306,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .footer__bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding-top: 28px; font-size: 13px; color: #8a8a8a; }
 
 /* ==========================================================================
-   INNER PAGES — MH_CLUB
+   INNER PAGES - MH_CLUB
    ========================================================================== */
 .inner { background: var(--paper); }
 .wrap { width: min(var(--wrap), 100% - 2 * var(--gutter)); margin-inline: auto; }
@@ -348,8 +353,25 @@ ul { margin: 0; padding: 0; list-style: none; }
   text-align: center;
 }
 
-.hero-img { aspect-ratio: 1.87; overflow: hidden; background: #e9e9e9; }
+.hero-img { position: relative; aspect-ratio: 1.87; overflow: hidden; background: #e9e9e9; border-radius: 4px; }
 .hero-img img { width: 100%; height: 100%; object-fit: cover; }
+/* Detail-page hero overlay: brand status chip + meta caption */
+.hero-img__status { position: absolute; top: 18px; left: 18px; z-index: 2; margin: 0; }
+.hero-img__cap {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 24px;
+  padding: 72px 24px 20px; color: #fff;
+  background: linear-gradient(to top, rgba(2, 16, 32, .88) 0%, rgba(2, 16, 32, .35) 55%, transparent 100%);
+}
+.hero-img__cap b {
+  font-family: var(--wide); font-weight: 400; font-size: 12px;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--brand);
+}
+.hero-img__cap span { font-size: 14.5px; color: rgba(255, 255, 255, .9); }
+@media (max-width: 640px) {
+  .hero-img__cap { padding: 60px 18px 16px; gap: 4px 16px; }
+  .hero-img__status { top: 12px; left: 12px; }
+}
 
 .h-wide {
   font-family: var(--wide);
@@ -526,9 +548,26 @@ ul { margin: 0; padding: 0; list-style: none; }
   position: fixed; inset: 0; z-index: 90; background: var(--dark); color: #fff;
   display: flex; flex-direction: column; justify-content: space-between;
   padding: 110px var(--gutter) 40px;
+  overflow: hidden; isolation: isolate;
   transform: translateY(-100%); transition: transform .55s var(--ease);
 }
 .drawer.is-open { transform: none; }
+/* Architectural wash + curtain-wall grid behind the menu */
+.drawer::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(130% 95% at 100% 0, rgba(242, 102, 3, .20), transparent 52%),
+    radial-gradient(95% 80% at 0 100%, rgba(0, 61, 112, .55), transparent 60%);
+}
+.drawer::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: #fff; opacity: .24;
+  --dpat: url(../img/patterns/curtainwall.svg) 0 0 / 58px 87px repeat;
+  --dfade: linear-gradient(203deg, #000 0%, #000 8%, transparent 74%);
+  -webkit-mask: var(--dpat); mask: var(--dpat);
+  -webkit-mask-image: var(--dpat), var(--dfade); mask-image: var(--dpat), var(--dfade);
+  -webkit-mask-composite: source-in; mask-composite: intersect;
+}
 .drawer nav a { display: block; font-size: 34px; letter-spacing: -.02em; padding: 6px 0; }
 .drawer__foot { display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: var(--muted-2); }
 .menu-open { overflow: hidden; }
@@ -564,6 +603,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   .hero__row { flex-direction: column; align-items: flex-start; gap: 20px; }
   .search { margin-top: 36px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px 24px; }
   .search__field:nth-child(n) { width: auto; }
+  .search__field + .search__field { margin-left: 0; padding-left: 0; border-left: 0; }
   .search__field:nth-child(3) { grid-column: 1 / -1; }
   .search__select { border-bottom: 1px solid rgba(255,255,255,.3); padding-bottom: 8px; }
   .search .btn { grid-column: 1 / -1; margin: 6px 0 0; }
@@ -605,7 +645,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 
 /* ==========================================================================
-   ONE TYPE SYSTEM — Michroma display type across the whole site
+   ONE TYPE SYSTEM - Michroma display type across the whole site
    (body copy stays Instrument Sans, exactly as on the inner pages)
    ========================================================================== */
 .hero__title {
@@ -630,7 +670,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .drawer nav a { font-family: var(--wide); font-size: 22px; letter-spacing: .02em; padding: 10px 0; }
 
 /* ==========================================================================
-   PATTERNS — property-development linework, layered subtly
+   PATTERNS - property-development linework, layered subtly
    Each pattern is an SVG used as a mask, so its colour and strength come
    from CSS (currentColor + opacity). --fade softens the edges.
    ========================================================================== */
@@ -668,16 +708,6 @@ main { overflow-x: clip; }
 .deco--at-plans { inset: 50px -24px -24px; opacity: .06; --fade: radial-gradient(ellipse at 50% 50%, #000 30%, transparent 75%); }
 .deco--at-side { top: -80px; bottom: -80px; right: calc(-1 * var(--gutter)); width: 62%; opacity: .07; --fade: radial-gradient(ellipse 60% 55% at 70% 50%, #000 0%, transparent 100%); }
 
-/* Survey crosshairs on the corners of hero images */
-.hero-img { position: relative; overflow: visible; }
-.hero-img::after {
-  content: ""; position: absolute; inset: -12px; pointer-events: none;
-  background: var(--ink); opacity: .45;
-  --x: url(../img/patterns/cross.svg);
-  -webkit-mask: var(--x) left top / 24px no-repeat, var(--x) right top / 24px no-repeat, var(--x) left bottom / 24px no-repeat, var(--x) right bottom / 24px no-repeat;
-  mask: var(--x) left top / 24px no-repeat, var(--x) right top / 24px no-repeat, var(--x) left bottom / 24px no-repeat, var(--x) right bottom / 24px no-repeat;
-}
-
 /* Survey "+" marker before section labels */
 .row > .label::before {
   content: ""; display: inline-block; width: 9px; height: 9px; margin-right: 10px; vertical-align: -1px;
@@ -694,7 +724,7 @@ main { overflow-x: clip; }
 }
 
 /* ==========================================================================
-   HERO FRAME — thin white outer margin + rounded corners (as in Dwella)
+   HERO FRAME - thin white outer margin + rounded corners (as in Dwella)
    ========================================================================== */
 .hero {
   margin: 12px;
@@ -734,7 +764,6 @@ main { overflow-x: clip; }
   /* Taller hero images on narrow screens */
   .hero-img { aspect-ratio: 4 / 3; }
   .tour { aspect-ratio: 4 / 3; }
-  .hero-img::after { inset: -10px; }
 
   /* Developments filters: swipeable type tabs + full-width select rows */
   .filters { flex-direction: column; align-items: stretch; gap: 10px; padding: 12px 0 4px; }
@@ -798,7 +827,7 @@ main { overflow-x: clip; }
 .swipe-hint svg { width: 30px; height: 10px; stroke: currentColor; fill: none; stroke-width: 1; }
 
 /* ==========================================================================
-   HOW WE BUILD — ambient colour bleed
+   HOW WE BUILD - ambient colour bleed
    A blurred, saturated copy of each card's own photo tints the card body,
    so every card picks up its image's colours automatically.
    ========================================================================== */
@@ -820,7 +849,7 @@ main { overflow-x: clip; }
 .step__body { position: relative; margin-top: -20px; }
 
 /* ==========================================================================
-   HERO — always one screen, nothing to scroll for
+   HERO - always one screen, nothing to scroll for
    ========================================================================== */
 .hero {
   height: auto; max-height: none;
@@ -945,7 +974,7 @@ main { overflow-x: clip; }
 @media (max-width: 900px) { .clients-grid { grid-template-columns: 1fr 1fr; } .clients-grid span:nth-child(4n) { border-right: 1px solid var(--line-2); } .clients-grid span:nth-child(2n) { border-right: 0; } }
 @media (max-width: 480px) { .clients-grid { grid-template-columns: 1fr; } .clients-grid span { border-right: 0 !important; } }
 
-/* Scope-of-work panel (Project page — replaces floor plans) */
+/* Scope-of-work panel (Project page - replaces floor plans) */
 .scope-panel { background: var(--soft); padding: 34px 32px 38px; }
 .scope-panel h3 { font-family: var(--wide); font-weight: 400; font-size: 15px; letter-spacing: .01em; margin-bottom: 22px; }
 .scope-list { display: flex; flex-direction: column; }
@@ -961,7 +990,7 @@ main { overflow-x: clip; }
 .page-intro { max-width: 620px; margin: 10px 0 20px; font-size: 16px; line-height: 1.7; color: #4a4a4a; }
 
 /* ==========================================================================
-   HERO CLIENT MARQUEE (draggable, auto-flowing logo strip — no chips)
+   HERO CLIENT MARQUEE (draggable, auto-flowing logo strip - no chips)
    ========================================================================== */
 .hero__marquee {
   display: flex; align-items: center; gap: 28px;
@@ -999,7 +1028,7 @@ main { overflow-x: clip; }
 }
 
 /* ==========================================================================
-   MOBILE HEADER CONTROLS — quick search, burger, and drawer close button
+   MOBILE HEADER CONTROLS - quick search, burger, and drawer close button
    ========================================================================== */
 .navsearch { display: none; width: 42px; height: 44px; align-items: center; justify-content: center; }
 .navsearch svg { width: 21px; height: 21px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
@@ -1021,7 +1050,7 @@ main { overflow-x: clip; }
 }
 
 /* ==========================================================================
-   ABOUT — editorial studio hero
+   ABOUT - editorial studio hero
    ========================================================================== */
 .studio-hero {
   display: grid; grid-template-columns: 1.05fr .95fr;
@@ -1074,13 +1103,13 @@ main { overflow-x: clip; }
 }
 
 /* ==========================================================================
-   CONTACT — plain map frame (no survey crosshairs)
+   CONTACT - plain map frame (no survey crosshairs)
    ========================================================================== */
 .map-frame { aspect-ratio: 1.6; overflow: hidden; background: #e9e9e9; border: 1px solid var(--line-2); }
 .map-frame iframe { display: block; width: 100%; height: 100%; border: 0; }
 
 /* ==========================================================================
-   FOOTER — geometric "cornered" architectural treatment
+   FOOTER - geometric "cornered" architectural treatment
    (replaces the crenel + contour patterns)
    ========================================================================== */
 .deco--corners { --pat: url(../img/patterns/corners.svg) 0 0 / 46px 46px repeat; }
@@ -1096,7 +1125,7 @@ main { overflow-x: clip; }
 @media (max-width: 640px) { .footer::before, .footer::after { top: 34px; } }
 
 /* ==========================================================================
-   PHOSPHOR DUOTONE ICONS — sizing per context (colour inherits / is set)
+   PHOSPHOR DUOTONE ICONS - sizing per context (colour inherits / is set)
    The webfont renders a solid primary layer + a lighter secondary layer.
    ========================================================================== */
 .ph-duotone { line-height: 1; vertical-align: middle; }
@@ -1113,11 +1142,11 @@ main { overflow-x: clip; }
 .header__loc i { font-size: 15px; }
 .navsearch i { font-size: 22px; }
 
-/* Leadership grid (About) — icon wrapper now holds a Phosphor glyph */
+/* Leadership grid (About) - icon wrapper now holds a Phosphor glyph */
 .team__icon { width: auto; height: auto; stroke: none; font-size: 34px; color: var(--dark); line-height: 1; }
 
 /* ==========================================================================
-   FEATURED — large lead project card on top
+   FEATURED - large lead project card on top
    ========================================================================== */
 .flead {
   display: grid; grid-template-columns: 1.12fr .88fr;
@@ -1140,7 +1169,7 @@ main { overflow-x: clip; }
 }
 
 /* ==========================================================================
-   DESIGN & DETAIL — technical drawings on blueprint sheets
+   DESIGN & DETAIL - technical drawings on blueprint sheets
    ========================================================================== */
 .designs .section__head { margin-bottom: 32px; }
 .design-grid {
@@ -1181,7 +1210,7 @@ main { overflow-x: clip; }
 .deco--curtain.deco--at-band { opacity: .14; }
 
 /* ==========================================================================
-   SMALL DETAILS — artful architectural tag badge (top-left of media cards)
+   SMALL DETAILS - artful architectural tag badge (top-left of media cards)
    A navy block with a concentrated curtain-wall grid baked in + orange edge.
    ========================================================================== */
 .cardtag {
@@ -1197,7 +1226,7 @@ main { overflow-x: clip; }
 .cardtag__yr { display: inline-flex; align-items: center; padding: 7px 11px; font-size: 9px; letter-spacing: .12em; font-weight: 600; color: #fff; background: var(--brand); }
 
 /* ==========================================================================
-   FEATURED CARDS — colourful, enhanced small components
+   FEATURED CARDS - colourful, enhanced small components
    ========================================================================== */
 .card { position: relative; }
 .card__body { border-top: 2px solid var(--accent, var(--line)); padding: 16px 2px 0; }
@@ -1225,12 +1254,13 @@ main { overflow-x: clip; }
 /* Architectural drafting-grid behind the Featured heading */
 .deco--blueprint { --pat: url(../img/patterns/blueprint.svg) 0 0 / 44px 44px repeat; }
 .deco--blueprint.deco--at-featured { opacity: .08; }
+.deco--at-spec { inset: -30px calc(-1 * var(--gutter)) -30px auto; width: 46%; opacity: .07; --fade: linear-gradient(90deg, transparent, #000 60%); }
 
 /* Design strip scroll hint (shown on all breakpoints for the designs row) */
 .designs__hint { display: flex; margin: -4px 0 16px; }
 
 /* ==========================================================================
-   SERVICES — colourful feature cards
+   SERVICES - colourful feature cards
    ========================================================================== */
 .svc__no {
   align-self: flex-start; display: inline-flex; align-items: center;
@@ -1248,7 +1278,7 @@ main { overflow-x: clip; }
 .svc__media { border-top: 3px solid var(--accent, transparent); }
 
 /* ==========================================================================
-   CLIENTS — logo wall (About · "Trusted on landmark work")
+   CLIENTS - logo wall (About · "Trusted on landmark work")
    ========================================================================== */
 .clients-grid .client-logo { justify-content: center; }
 .client-logo img {
@@ -1259,7 +1289,7 @@ main { overflow-x: clip; }
 @media (max-width: 480px) { .client-logo img { height: 36px; } }
 
 /* ==========================================================================
-   OUR WORK — status badge upgraded to the same artful architectural tag
+   OUR WORK - status badge upgraded to the same artful architectural tag
    ========================================================================== */
 .pitem__status {
   position: absolute; left: 12px; top: 12px; z-index: 2;
@@ -1282,7 +1312,7 @@ main { overflow-x: clip; }
 .pitem__status[data-s="Under construction"] i { background: #e0b43a; box-shadow: 0 0 0 3px rgba(224, 180, 58, .2); }
 
 /* ==========================================================================
-   HERO CLIENT MARQUEE — detail-preserving greyscale (legible on dark)
+   HERO CLIENT MARQUEE - detail-preserving greyscale (legible on dark)
    grayscale keeps each colour's tonal detail; invert lifts it onto the dark
    hero so every mark stays recognisable without its original colour.
    ========================================================================== */
@@ -1291,3 +1321,72 @@ main { overflow-x: clip; }
   opacity: .92;
 }
 .logo-chip:hover img { opacity: 1; filter: grayscale(1) invert(1) contrast(.95) brightness(1.15); }
+
+/* ==========================================================================
+   CUSTOM SELECT - replaces the native dropdown everywhere, keeps the
+   underlying <select> for form submission, values and change events.
+   ========================================================================== */
+.has-cselect::after { display: none !important; }        /* hide native chevron of host wrappers */
+.cselect { position: relative; width: 100%; }
+.cselect__native { position: absolute; left: 0; bottom: 0; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.cselect__btn {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  width: 100%; font: inherit; color: inherit; background: transparent; cursor: pointer; text-align: left;
+}
+.cselect__val { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cselect__chev { flex: 0 0 auto; display: inline-flex; opacity: .8; transition: transform .25s var(--ease); }
+.cselect__chev svg { width: 12px; height: 8px; display: block; }
+.cselect__btn:hover .cselect__chev { opacity: 1; }
+.cselect__btn[aria-expanded="true"] .cselect__chev { transform: rotate(180deg); }
+
+/* floating options panel (appended to <body>, position:fixed) */
+.cselect__panel {
+  position: fixed; top: 0; left: 0; z-index: 120;
+  min-width: 172px; max-height: min(300px, 55vh); overflow-y: auto;
+  padding: 6px; background: #fff; color: var(--ink);
+  border: 1px solid var(--line); border-radius: 7px;
+  box-shadow: 0 22px 48px rgba(0, 30, 60, .18), 0 2px 8px rgba(0, 0, 0, .08);
+  opacity: 0; visibility: hidden; transform: translateY(-6px);
+  transition: opacity .18s var(--ease), transform .18s var(--ease), visibility .18s;
+  scrollbar-width: thin; scrollbar-color: var(--line-2) transparent;
+}
+.cselect__panel.open { opacity: 1; visibility: visible; transform: none; }
+.cselect__panel::-webkit-scrollbar { width: 8px; }
+.cselect__panel::-webkit-scrollbar-thumb { background: var(--line-2); border-radius: 8px; border: 2px solid #fff; }
+.cselect__opt {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  padding: 10px 12px; font-family: var(--sans); font-size: 14px; color: var(--ink);
+  text-align: left; border-radius: 5px; cursor: pointer; transition: background .15s, color .15s;
+}
+.cselect__opt:hover, .cselect__opt.active { background: var(--soft); }
+.cselect__opt[aria-selected="true"] { color: var(--brand); font-weight: 500; }
+.cselect__opt[aria-selected="true"]::after {
+  content: ""; margin-left: auto; width: 15px; height: 15px; flex: 0 0 auto; background: var(--brand);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5 6.5 12 13 4' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5 6.5 12 13 4' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+/* Context: hero search (light text on dark hero) */
+.search__select .cselect__btn { color: rgba(255, 255, 255, .82); font-size: 13px; padding: 2px 0; }
+.search__select .cselect__btn:hover, .search__select .cselect.open .cselect__btn { color: #fff; }
+
+/* Context: projects filters (compact, dark text, content-width) */
+.fselect .cselect { width: auto; }
+.fselect .cselect__btn { gap: 10px; font-size: 13px; }
+
+/* Context: contact form field (ruled underline like the inputs) */
+.field .cselect__btn { border-bottom: 1px solid var(--line-2); padding: 10px 0; font-size: 15px; transition: border-color .25s; }
+.field .cselect.open .cselect__btn { border-color: var(--ink); }
+@media (max-width: 900px) { .field .cselect__btn { font-size: 16px; } }
+
+/* ==========================================================================
+   FLOATING WHATSAPP - custom, in the brand colours (navy body, orange ring)
+   ========================================================================== */
+.wa__btn { background: var(--dark); }
+.wa__btn::before { border-color: var(--brand); }
+.wa:hover .wa__btn { background: #013b6e; }
+.wa__dot {
+  position: absolute; top: 9px; right: 9px; width: 11px; height: 11px;
+  border-radius: 50%; background: var(--brand); border: 2px solid var(--dark);
+}
+.wa__label { background: var(--dark); }

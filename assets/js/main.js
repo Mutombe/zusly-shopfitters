@@ -1,4 +1,4 @@
-/* Zusly Shopfitters & Projects — site behaviour */
+/* Zusly Shopfitters & Projects - site behaviour */
 (function () {
   "use strict";
 
@@ -10,7 +10,7 @@
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const unique = (arr) => [...new Set(arr)];
 
-  // Phosphor (duotone) icon helper — webfont loaded in each page <head>
+  // Phosphor (duotone) icon helper - webfont loaded in each page <head>
   const ph = (name, cls = "") => `<i class="ph-duotone ph-${name}${cls ? " " + cls : ""}" aria-hidden="true"></i>`;
   const ICON = {
     tag:   ph("tag", "spec-ic"),
@@ -32,11 +32,11 @@
     { img: "designs/design-sliding-partition.png", no: "D-02", name: "Sliding Partition",    text: "Framed sliding panels that zone an interior without losing light." },
     { img: "designs/design-stacking-slider.png",   no: "D-03", name: "Stacking Slider",      text: "Three-panel stacking door on a precision bottom-rolling track." },
     { img: "designs/design-double-doors.png",      no: "D-04", name: "Double Entrance Doors", text: "Paired entrance doors with full-height pull handles and flush frames." },
-    { img: "designs/design-bypass-slider.png",     no: "D-05", name: "Bypass Slider",        text: "Two-track bypass glazing — one leaf glides behind the other." },
+    { img: "designs/design-bypass-slider.png",     no: "D-05", name: "Bypass Slider",        text: "Two-track bypass glazing where one leaf glides behind the other." },
     { img: "designs/design-pivot-door.png",        no: "D-06", name: "Pivot Door",           text: "Centre-hung pivot leaf detailed for a clean, frameless reveal." },
   ];
 
-  // Accent colour per category / service — "colourful" cards, kept architectural
+  // Accent colour per category / service - "colourful" cards, kept architectural
   const ACCENTS = ["#1f6fb2", "#F26603", "#1f8f93", "#a86a2c", "#3f8456", "#4a5bbf"];
   const CAT_COLOR = {
     "Curtain Walls": "#1f6fb2",
@@ -154,7 +154,7 @@
     const dg = $("#designGrid");
     if (dg) dg.innerHTML = DESIGNS.map((d) => `
       <figure class="design reveal">
-        <div class="design__sheet"><img src="${img(d.img)}" alt="${esc(d.name)} — technical drawing" loading="lazy"></div>
+        <div class="design__sheet"><img src="${img(d.img)}" alt="${esc(d.name)} technical drawing" loading="lazy"></div>
         <figcaption><span class="design__no">${esc(d.no)}</span><h3>${esc(d.name)}</h3><p>${esc(d.text)}</p></figcaption>
       </figure>`).join("");
     const steps = $("#steps");
@@ -172,7 +172,7 @@
     if (logos && D.clientLogos) {
       const one = D.clientLogos.map((c) =>
         `<span class="logo-chip"><img src="assets/img/clients/${c.file}" alt="${esc(c.name)}" loading="lazy"></span>`).join("");
-      logos.innerHTML = one + one;   // two copies → seamless infinite scroll
+      logos.innerHTML = one + one;   // two copies for a continuous loop
       initHeroMarquee();
     }
   }
@@ -303,7 +303,7 @@
       const it = items[i];
       $(".lightbox__stage img", lb).src = img(it.img);
       $(".lightbox__stage img", lb).alt = it.title;
-      $(".lb-cap", lb).textContent = it.text ? `${it.title} — ${it.text}` : it.title;
+      $(".lb-cap", lb).textContent = it.text ? `${it.title}. ${it.text}` : it.title;
       $(".lb-i", lb).textContent = i + 1;
     };
     const open = (n = 0) => { last = document.activeElement; show(n); lb.classList.add("is-open"); document.body.classList.add("menu-open"); $(".lightbox__close", lb).focus(); };
@@ -329,13 +329,21 @@
     const next = D.projects[(idx + 1) % D.projects.length];
     const city = D.company.city;
 
-    document.title = `${p.name} — Zusly`;
+    document.title = `${p.name}, Zusly`;
     $("#crumbName").textContent = p.name;
     $("#pTitle").innerHTML = `${esc(p.name)} <span style="white-space:nowrap">№${p.no}</span>`;
     $("#pBack").href = `project.html?p=${prev.slug}`;
     $("#pNext").href = `project.html?p=${next.slug}`;
     $("#pImg").src = img(p.img);
     $("#pImg").alt = p.name;
+    if ($("#pStatus")) {
+      $("#pStatus").dataset.s = p.status;
+      $("#pStatus").insertAdjacentText("beforeend", p.status);
+    }
+    if ($("#pCap")) {
+      $("#pCap").innerHTML =
+        `<b>${esc(p.cat)}</b><span>${esc(p.location)}, ${esc(city)}</span><span>${esc(p.year)}</span>`;
+    }
     $("#pSummary").textContent = p.summary;
 
     $("#scopeList").innerHTML = p.scope.map((s) => `<li>${esc(s)}</li>`).join("");
@@ -354,7 +362,7 @@
 
     const gal = p.gallery.map((g, i) => ({ img: g, title: p.name, text: `Image ${i + 1}` }));
     $("#gallery").innerHTML = gal.map((g, i) => `
-      <figure class="slide" style="margin:0"><button class="slide__media" style="display:block;width:100%" data-i="${i}" aria-label="Open image ${i + 1}"><img src="${img(g.img)}" alt="${esc(p.name)} — image ${i + 1}" loading="lazy"></button>
+      <figure class="slide" style="margin:0"><button class="slide__media" style="display:block;width:100%" data-i="${i}" aria-label="Open image ${i + 1}"><img src="${img(g.img)}" alt="${esc(p.name)}, image ${i + 1}" loading="lazy"></button>
       <figcaption class="slide__cap"><span class="label">0${i + 1}</span><div><h3>${esc(p.cat)}</h3><p>${esc(p.location)}, ${city}</p></div></figcaption></figure>`).join("");
     initCarousel($("#galleryNav"));
     const open = initLightbox(gal);
@@ -433,7 +441,7 @@
     f.addEventListener("submit", (e) => {
       e.preventDefault();
       if (!validate()) return;
-      location.href = `mailto:${D.company.email}?subject=${encodeURIComponent("Website enquiry — " + (svc.value || "General"))}&body=${encodeURIComponent(body())}`;
+      location.href = `mailto:${D.company.email}?subject=${encodeURIComponent("Website enquiry: " + (svc.value || "General"))}&body=${encodeURIComponent(body())}`;
     });
     const wa = $("#waSend");
     if (wa) wa.addEventListener("click", () => {
@@ -466,7 +474,7 @@
     a.target = "_blank";
     a.rel = "noopener";
     a.setAttribute("aria-label", "Chat with Zusly on WhatsApp");
-    a.innerHTML = `<span class="wa__label">Chat on WhatsApp</span><span class="wa__btn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></span>`;
+    a.innerHTML = `<span class="wa__label">Chat on WhatsApp</span><span class="wa__btn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg><span class="wa__dot" aria-hidden="true"></span></span>`;
     document.body.appendChild(a);
     const search = $("#search");
     if (search && "IntersectionObserver" in window) {
@@ -478,6 +486,106 @@
     }
   }
 
+  /* ---------------- Custom select (keeps the native <select> working) ------ */
+  function initSelect(sel) {
+    if (!sel || sel.dataset.enh) return;
+    sel.dataset.enh = "1";
+    const host = sel.parentNode;
+    host.classList.add("has-cselect");
+    const box = document.createElement("div");
+    box.className = "cselect";
+    host.insertBefore(box, sel);
+    box.appendChild(sel);
+    sel.classList.add("cselect__native");
+    sel.setAttribute("tabindex", "-1");
+    sel.setAttribute("aria-hidden", "true");
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "cselect__btn";
+    btn.setAttribute("aria-haspopup", "listbox");
+    btn.setAttribute("aria-expanded", "false");
+    btn.innerHTML = `<span class="cselect__val"></span><span class="cselect__chev" aria-hidden="true"><svg viewBox="0 0 12 8"><path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
+    const lbl = host.id ? null : host.querySelector("label") || (sel.id && document.querySelector(`label[for="${sel.id}"]`));
+    if (lbl && lbl.textContent) btn.setAttribute("aria-label", lbl.textContent.trim());
+    box.appendChild(btn);
+
+    const panel = document.createElement("div");
+    panel.className = "cselect__panel";
+    panel.setAttribute("role", "listbox");
+    document.body.appendChild(panel);
+
+    const val = btn.querySelector(".cselect__val");
+    const sync = () => { const o = sel.options[sel.selectedIndex]; val.textContent = o ? o.textContent : ""; };
+    let active = -1;
+
+    const build = () => {
+      panel.innerHTML = "";
+      Array.from(sel.options).forEach((o, i) => {
+        const b = document.createElement("button");
+        b.type = "button"; b.className = "cselect__opt"; b.setAttribute("role", "option");
+        b.dataset.i = i; b.setAttribute("aria-selected", String(i === sel.selectedIndex));
+        b.innerHTML = `<span>${esc(o.textContent)}</span>`;
+        b.addEventListener("click", () => pick(i));
+        b.addEventListener("mousemove", () => { active = i; hl(); });
+        panel.appendChild(b);
+      });
+    };
+    const place = () => {
+      const r = btn.getBoundingClientRect();
+      panel.style.minWidth = Math.max(Math.round(r.width), 172) + "px";
+      panel.style.left = Math.round(r.left) + "px";
+      const ph = panel.offsetHeight || 240;
+      let top = r.bottom + 8;
+      if (top + ph > window.innerHeight - 8 && r.top - ph - 8 > 8) top = r.top - ph - 8;
+      panel.style.top = Math.round(top) + "px";
+    };
+    const hl = () => Array.from(panel.children).forEach((c, i) => c.classList.toggle("active", i === active));
+    const isOpen = () => panel.classList.contains("open");
+    const open = () => {
+      if (isOpen()) return;
+      build(); place();
+      panel.classList.add("open"); btn.setAttribute("aria-expanded", "true");
+      active = sel.selectedIndex; hl();
+      const sa = panel.children[active]; if (sa) sa.scrollIntoView({ block: "nearest" });
+      setTimeout(() => {                         // attach after the opening click settles
+        document.addEventListener("pointerdown", onDoc, true);
+        window.addEventListener("scroll", onScroll, true);
+        window.addEventListener("resize", close);
+      }, 0);
+    };
+    function close() {
+      if (!isOpen()) return;
+      panel.classList.remove("open"); btn.setAttribute("aria-expanded", "false");
+      document.removeEventListener("pointerdown", onDoc, true);
+      window.removeEventListener("scroll", onScroll, true);
+      window.removeEventListener("resize", close);
+    }
+    function onScroll() { place(); }             // keep the panel pinned to its button
+    function onDoc(e) { if (!panel.contains(e.target) && !box.contains(e.target)) close(); }
+    function pick(i) {
+      if (i < 0 || i >= sel.options.length) return;
+      sel.selectedIndex = i; sync();
+      sel.dispatchEvent(new Event("change", { bubbles: true }));
+      close(); btn.focus();
+    }
+
+    btn.addEventListener("click", () => (isOpen() ? close() : open()));
+    btn.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+        e.preventDefault();
+        if (!isOpen()) return open();
+        active = Math.max(0, Math.min(sel.options.length - 1, (active < 0 ? sel.selectedIndex : active) + (e.key === "ArrowDown" ? 1 : -1)));
+        hl(); panel.children[active] && panel.children[active].scrollIntoView({ block: "nearest" });
+      } else if (e.key === "Enter" || e.key === " ") {
+        if (isOpen()) { e.preventDefault(); pick(active < 0 ? sel.selectedIndex : active); }
+        else if (e.key === "Enter") { e.preventDefault(); open(); }
+      } else if (e.key === "Escape") { close(); }
+    });
+    sel.addEventListener("change", sync);
+    sync();
+  }
+
   fillCompany();
   initNav();
   initWhatsApp();
@@ -487,6 +595,7 @@
   if (page === "services") initServices();
   if (page === "about") initAbout();
   if (page === "contact") initContact();
+  $$("select").forEach(initSelect);
   $$("[data-carousel]").forEach(initCarousel);
   initReveal();
 })();
