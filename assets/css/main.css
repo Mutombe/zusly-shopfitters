@@ -1190,7 +1190,6 @@ main { overflow-x: clip; }
   padding: 9px 14px 10px 13px; color: #fff; overflow: hidden; isolation: isolate;
   background: linear-gradient(142deg, #014a84 0%, #002338 100%);
   box-shadow: 0 6px 20px rgba(0, 20, 40, .32);
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 12px 100%, 0 calc(100% - 12px));
 }
 .cardtag::before {
   content: ""; position: absolute; inset: 0; z-index: -1; background: #fff; opacity: .14;
@@ -1262,3 +1261,41 @@ main { overflow-x: clip; }
 }
 .client-logo:hover img { opacity: 1; transform: scale(1.04); }
 @media (max-width: 480px) { .client-logo img { height: 36px; } }
+
+/* ==========================================================================
+   OUR WORK — status badge upgraded to the same artful architectural tag
+   ========================================================================== */
+.pitem__status {
+  position: absolute; left: 12px; top: 12px; z-index: 2;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 13px; overflow: hidden; isolation: isolate;
+  color: #fff; font-family: var(--wide);
+  font-size: 9.5px; letter-spacing: .06em; text-transform: uppercase; font-weight: 400;
+  background: linear-gradient(142deg, #014a84 0%, #002338 100%);
+  box-shadow: 0 6px 18px rgba(0, 20, 40, .3);
+}
+.pitem__status::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; background: #fff; opacity: .13;
+  -webkit-mask: url(../img/patterns/curtainwall.svg) 0 0 / 11px 16px repeat;
+          mask: url(../img/patterns/curtainwall.svg) 0 0 / 11px 16px repeat;
+}
+.pitem__status::after { content: ""; position: absolute; left: 0; top: 0; width: 100%; height: 2px; background: var(--brand); }
+.pitem__status i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin: 0; vertical-align: 0; background: var(--brand); box-shadow: 0 0 0 3px rgba(242, 102, 3, .22); }
+.pitem__status[data-s="Featured"] i { background: var(--brand); box-shadow: 0 0 0 3px rgba(242, 102, 3, .22); }
+.pitem__status[data-s="Completed"] i { background: #9fb6cc; box-shadow: 0 0 0 3px rgba(159, 182, 204, .18); }
+.pitem__status[data-s="Under construction"] i { background: #e0b43a; box-shadow: 0 0 0 3px rgba(224, 180, 58, .2); }
+
+/* ==========================================================================
+   HERO CLIENT MARQUEE — detail-preserving greyscale (legible on dark)
+   grayscale keeps each colour's tonal detail; invert lifts it onto the dark
+   hero so every mark stays recognisable without its original colour.
+   ========================================================================== */
+.logo-chip img {
+  filter: grayscale(1) invert(1) contrast(.9) brightness(1.08);
+  opacity: .92;
+}
+.logo-chip:hover img { opacity: 1; filter: grayscale(1) invert(1) contrast(.95) brightness(1.15); }
+
+/* Nav brand logo: show the full-colour mark; only whiten it over the dark
+   mobile drawer (menu open). */
+.menu-open .topnav__logo img { filter: brightness(0) invert(1); }
