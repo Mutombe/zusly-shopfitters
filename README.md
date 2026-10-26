@@ -1,6 +1,6 @@
 # Zusly — v3
 
-A static, multi-page site for **Zusly Shopfitters & Projects** — architectural
+A static, multi-page site for **Zusly Projects** — architectural
 aluminium & glazing studio in Harare, Zimbabwe.
 
 Editorial "architectural" design: a full-bleed rounded hero, Michroma display

@@ -1,23 +1,32 @@
 /* ==========================================================================
-   Zusly Shopfitters & Projects - site content
+   Zusly Projects - site content
    Edit this file to change projects, services, people and company details.
    Image names are the exact file names in /assets/img/.
    ========================================================================== */
 
 window.ZUSLY = {
   company: {
-    name: "Zusly Shopfitters & Projects",
+    name: "Zusly Projects",
     short: "Zusly",
-    tagline: "Architectural aluminium and glazing, fabricated in Harare.",
+    tagline: "Design & Build. Structural steel, aluminium and glazing, engineered in Harare.",
+    driver: "Design & Build",
     location: "Harare, Zimbabwe",
     city: "Harare",
-    phone: "+263 77 434 3254",
+    phone: "+263 71 524 6461",
+    phoneDigits: "263715246461",
     whatsapp: "263715246461",      // international format, digits only
-    whatsappMessage: "Hello Zusly, I would like to discuss an aluminium & glazing project.",
+    whatsappMessage: "Hello Zusly, I would like to discuss a design & build project.",
     email: "info@zuslyprojects.co.zw",
+    hr: {
+      email: "hr@zuslyprojects.co.zw",
+      phone: "+263 78 382 1116",
+      whatsapp: "263783821116",
+    },
     address: "10 Arlington Road, Logan Park, Harare",
     hours: "Mon-Sat, 07:00-17:00",
-    established: "2020",
+    established: "2018",
+    establishedFull: "18 July 2018",
+    years: "8",
   },
 
   // "How we work" - shown on the home page and every project page
@@ -45,42 +54,49 @@ window.ZUSLY = {
 
   services: [
     {
-      slug: "curtain-walls", no: "01", name: "Curtain Walls & Shopfronts",
+      slug: "steel-structures", no: "01", name: "Steel Structures, Sheds & Warehouses",
+      img: "MG_8868-1024x683.jpg",
+      summary: "Large-span steel sheds, warehouses and industrial structures, designed and built for structural integrity and long working life.",
+      long: "We design and build large steel structures end to end: portal-frame warehouses, industrial sheds, canopies and mezzanines. Our in-house Engineers size every member for the load and the span, our workshop fabricates to tolerance, and our teams erect and clad on site. The result is a watertight, code-compliant structure built for decades of use.",
+      features: ["Portal-frame warehouses & sheds", "Structural steel design & analysis", "Roof & wall cladding, guttering", "Mezzanines, canopies & walkways", "Design-and-build, survey to handover"],
+    },
+    {
+      slug: "curtain-walls", no: "02", name: "Curtain Walls & Shopfronts",
       img: "MG_8871-1024x683.jpg",
       summary: "Large-scale reflective glass facades and structural silicone glazing that command a streetscape.",
       long: "We design, fabricate and install aluminium curtain-wall systems and shopfront glazing for commercial buildings: reflective facades, structural silicone glazing, and unitised panels for multi-storey work. We also re-skin ageing facades floor by floor, so the offices behind them keep running.",
       features: ["Reflective & tinted glass", "Structural silicone glazing", "Aluminium-framed shopfronts", "Multi-storey unitised systems", "Facade renovation & retrofit"],
     },
     {
-      slug: "windows-doors", no: "02", name: "Windows & Doors",
+      slug: "windows-doors", no: "03", name: "Windows & Doors",
       img: "IMG_6209-1024x771.jpg",
       summary: "Casements, sliding systems and bi-fold doors that dissolve the line between inside and out.",
       long: "Aluminium window and door systems sized to the opening and glazed for the climate: casements, stacking sliders, French doors, and bi-fold runs that fold a whole wall away to the garden. Every leaf is hung on hardware rated for daily use.",
       features: ["Casement & top-hung windows", "Sliding & stacking doors", "Bi-fold & multi-fold systems", "French doors, premium hardware", "Powder-coated finishes to spec"],
     },
     {
-      slug: "partitions-balustrades", no: "03", name: "Glass Partitions & Balustrades",
+      slug: "partitions-balustrades", no: "04", name: "Glass Partitions & Balustrades",
       img: "20250201_165511-1024x768.jpg",
       summary: "Frameless floor-to-ceiling partitions and steel-and-glass balustrades that divide a space without blocking the light.",
       long: "Floor-to-ceiling glass partitions and frameless balustrades that keep daylight moving through a room while holding back the noise. Acoustic glass is there for the rooms that need to stay quiet.",
       features: ["Frameless floor-to-ceiling partitions", "Stainless steel & glass balustrades", "Frameless doors, patch fittings", "Acoustic glass options", "Glass balcony balustrades"],
     },
     {
-      slug: "cladding-fascia", no: "04", name: "Cladding & Fascia",
+      slug: "cladding-fascia", no: "05", name: "Cladding & Fascia",
       img: "20241212_113455-1024x576.jpg",
       summary: "Architectural aluminium panels that add dimension, colour and weather protection to any facade.",
       long: "Architectural aluminium cladding and fascia systems that give a building a clean outer skin and shed water away from the structure. Panels are cut and colour-matched to the facade, from composite rainscreens to feature entrance walls.",
       features: ["Aluminium composite (ACP) cladding", "Fascia & soffit systems", "Feature entrance cladding", "Rainscreen & ventilated facades", "Colour-matched powder coating"],
     },
     {
-      slug: "pergolas-louvres", no: "05", name: "Pergolas & Louvres",
+      slug: "pergolas-louvres", no: "06", name: "Pergolas & Louvres",
       img: "398041177_825967209531386_4498533107683134640_n.jpg",
       summary: "Adjustable louvre pergolas and outdoor structures that extend living space under open skies.",
       long: "Aluminium louvre pergolas, outdoor structures and composite decking that extend your living and entertaining space. Adjustable louvres control sun and ventilation; powder-coated frames stand up to the climate year after year.",
       features: ["Adjustable louvre pergolas", "Fixed & motorised louvres", "Composite decking", "Cable & glass balustrade combos", "Integrated LED lighting & drainage"],
     },
     {
-      slug: "skylights-roofing", no: "06", name: "Skylights & Glass Roofing",
+      slug: "skylights-roofing", no: "07", name: "Skylights & Glass Roofing",
       img: "480728001_1186615213466582_21083941017618833_n_2.jpg",
       summary: "Pyramidal skylights and overhead glazing that flood interiors with dramatic natural light.",
       long: "Glass roof structures and skylight systems that drop daylight into the middle of a plan, from pyramidal frames to flat roof panels. Every unit is tempered or laminated glass, sealed against the rains.",
@@ -204,15 +220,15 @@ window.ZUSLY = {
 
   stats: [
     { value: "150+",  label: "Projects delivered" },
-    { value: "5",     label: "Years, in-house" },
+    { value: "8",     label: "Years in service" },
     { value: "100%",  label: "Client satisfaction" },
     { value: "25+",   label: "Skilled fabricators" },
   ],
 
   story: [
-    "Zusly Shopfitters & Projects was founded in 2020 with a single ambition: to fabricate architectural aluminium and glazing in Zimbabwe to the standard of imported work. From a focused workshop on Arlington Road in Logan Park, our founder assembled a team obsessed with getting every millimetre right.",
-    "In five years we have grown from fitting residential windows to delivering landmark commercial work, including the full curtain-wall renovation of the Insurance & Pensions Commission headquarters. That came from steady investment in our people and our equipment, and from a refusal to cut corners.",
-    "Today we work across the whole range of aluminium and glass, from commercial facades to garden pergolas. We stay owner-managed and quality-driven, and we still answer to the standard we set on day one.",
+    "Zusly Projects was founded on 18 July 2018 with a single ambition: to design and build to the standard of imported work, here in Zimbabwe. From a workshop on Arlington Road in Logan Park, our founder assembled a team obsessed with getting every millimetre right.",
+    "In eight years we have grown from fitting residential windows to delivering landmark design-and-build work, including the full curtain-wall renovation of the Insurance & Pensions Commission headquarters and large steel sheds and warehouses. That came from steady investment in our people and our equipment, and from a refusal to cut corners.",
+    "Today we carry projects end to end, from structural design through fabrication to installation. With in-house Architects, Engineers, Quantity Surveyors and Estimators under one roof, we stay owner-managed and quality-driven, and we still answer to the standard we set on day one.",
   ],
 
   clients: [

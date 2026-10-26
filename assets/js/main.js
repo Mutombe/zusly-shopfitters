@@ -1,4 +1,4 @@
-/* Zusly Shopfitters & Projects - site behaviour */
+/* Zusly Projects - site behaviour */
 (function () {
   "use strict";
 
