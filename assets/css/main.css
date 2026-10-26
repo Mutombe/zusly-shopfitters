@@ -1,10 +1,29 @@
 /* ==========================================================================
    Zusly Projects
-   Architectural aluminium & glazing studio - Harare, Zimbabwe
+   Design & Build — structural steel, aluminium & glazing, Harare, Zimbabwe
    Landing page  → full-bleed hero, pills, soft/navy cards
    Inner pages   → ruled header, wide display type, spec tables
    Palette: deep navy (#003D70) · Zusly orange (#F26603) · paper white
+   Type: D-DIN PRO (display, SIL OFL — assets/fonts/D-DIN-PRO-OFL.txt) + Montserrat (body)
    ========================================================================== */
+
+/* D-DIN PRO — self-hosted, SIL Open Font License 1.1 */
+@font-face {
+  font-family: "D-DIN PRO"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("../fonts/ddinpro-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "D-DIN PRO"; font-style: normal; font-weight: 500; font-display: swap;
+  src: url("../fonts/ddinpro-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "D-DIN PRO"; font-style: normal; font-weight: 700; font-display: swap;
+  src: url("../fonts/ddinpro-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: "D-DIN PRO"; font-style: normal; font-weight: 800; font-display: swap;
+  src: url("../fonts/ddinpro-800.woff2") format("woff2");
+}
 
 :root {
   --ink: #0e0e0e;
@@ -22,8 +41,9 @@
   --brand: #F26603;           /* Zusly orange - buttons */
   --brand-hover: #d4540a;
 
-  --sans: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
-  --wide: "Michroma", "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --sans: "Montserrat", "Helvetica Neue", Arial, sans-serif;           /* body copy */
+  --wide: "D-DIN PRO", "Montserrat", "Helvetica Neue", Arial, sans-serif; /* display / industrial */
+  --din:  "D-DIN PRO", "Montserrat", "Helvetica Neue", Arial, sans-serif; /* labels, numbers, UI */
 
   --gutter: clamp(20px, 4.3vw, 62px);
   --wrap: 1160px;
@@ -379,8 +399,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 .pager svg { width: 34px; height: 10px; stroke: currentColor; fill: none; stroke-width: 1; }
 .title-wide {
   font-family: var(--wide);
-  font-size: clamp(24px, 3.1vw, 40px);
-  font-weight: 400; line-height: 1.15; letter-spacing: .02em; text-transform: uppercase;
+  font-size: clamp(26px, 3.3vw, 46px);
+  font-weight: 800; line-height: 1.08; letter-spacing: -.005em; text-transform: uppercase;
   text-align: center;
 }
 
@@ -684,29 +704,30 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 
 /* ==========================================================================
-   ONE TYPE SYSTEM - Michroma display type across the whole site
-   (body copy stays Instrument Sans, exactly as on the inner pages)
+   ONE TYPE SYSTEM - D-DIN PRO display type across the whole site
+   (body copy is Montserrat). DIN is narrower + heavier than the old Michroma,
+   so display sizes run larger and tracking tighter for structural impact.
    ========================================================================== */
 .hero__title {
-  font-family: var(--wide);
-  font-size: clamp(27px, 3.45vw, 50px);
-  line-height: 1.24; letter-spacing: 0;
+  font-family: var(--wide); font-weight: 800;
+  font-size: clamp(42px, 5.6vw, 88px);
+  line-height: 1.02; letter-spacing: -.02em;
 }
 .h-display {
-  font-family: var(--wide);
-  font-size: clamp(22px, 2.25vw, 32px);
-  line-height: 1.34; letter-spacing: 0;
+  font-family: var(--wide); font-weight: 700;
+  font-size: clamp(30px, 3.4vw, 50px);
+  line-height: 1.08; letter-spacing: -.015em;
 }
-.cta__card .h-display { font-size: clamp(21px, 1.9vw, 28px); }
+.cta__card .h-display { font-size: clamp(26px, 2.4vw, 38px); }
 .card__name, .feature h3, .step h3 {
-  font-family: var(--wide);
-  font-size: 15px; line-height: 1.45; letter-spacing: .01em;
+  font-family: var(--wide); font-weight: 700;
+  font-size: 20px; line-height: 1.2; letter-spacing: -.01em;
 }
 .feature h3, .step h3 { margin-bottom: 10px; }
-.about__stats b, .band__stats b { font-family: var(--wide); letter-spacing: 0; }
-.about__stats b { font-size: 26px; margin-bottom: 6px; }
-.band__stats b { font-size: clamp(22px, 2.3vw, 34px); margin-bottom: 8px; }
-.drawer nav a { font-family: var(--wide); font-size: 22px; letter-spacing: .02em; padding: 10px 0; }
+.about__stats b, .band__stats b { font-family: var(--din); font-weight: 800; letter-spacing: -.01em; }
+.about__stats b { font-size: 40px; margin-bottom: 6px; }
+.band__stats b { font-size: clamp(30px, 3vw, 46px); margin-bottom: 8px; }
+.drawer nav a { font-family: var(--wide); font-weight: 700; font-size: 26px; letter-spacing: -.01em; padding: 10px 0; }
 
 /* ==========================================================================
    PATTERNS - property-development linework, layered subtly
@@ -1105,7 +1126,7 @@ main { overflow-x: clip; }
 .studio-hero__intro .label { display: block; padding: 0; margin-bottom: 22px; color: var(--brand); font-weight: 600; }
 .studio-hero__title {
   font-family: var(--wide); text-align: left; text-transform: uppercase;
-  font-size: clamp(30px, 4.3vw, 58px); font-weight: 400; line-height: 1.08; letter-spacing: .005em;
+  font-size: clamp(34px, 4.6vw, 64px); font-weight: 800; line-height: 1.02; letter-spacing: -.005em;
   margin-bottom: 28px;
 }
 .studio-hero__intro .lead { max-width: 460px; }
