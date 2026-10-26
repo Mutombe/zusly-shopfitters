@@ -101,9 +101,15 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* ---------- Top nav (over hero) ---------- */
 .topnav {
-  position: absolute; inset: 0 0 auto 0; z-index: 20;
+  position: fixed; inset: 0 0 auto 0; z-index: 40;
   display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
   padding: 30px var(--gutter);
+  transition: background .3s var(--ease), padding .3s var(--ease), box-shadow .3s var(--ease);
+}
+.topnav--stuck {
+  background: var(--dark);
+  padding-top: 15px; padding-bottom: 15px;
+  box-shadow: 0 8px 30px rgba(0, 15, 35, .26);
 }
 .topnav__logo img { height: 46px; width: auto; }
 .topnav__links { display: flex; gap: 40px; }
@@ -544,12 +550,20 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* ==========================================================================
    Mobile nav drawer
    ========================================================================== */
+.drawer-backdrop {
+  position: fixed; inset: 0; z-index: 88; background: rgba(2, 12, 28, .5);
+  opacity: 0; visibility: hidden; transition: opacity .4s var(--ease), visibility .4s var(--ease);
+  -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px);
+}
+.drawer-backdrop.is-open { opacity: 1; visibility: visible; }
 .drawer {
-  position: fixed; inset: 0; z-index: 90; background: var(--dark); color: #fff;
+  position: fixed; inset: 12px; z-index: 90; background: var(--dark); color: #fff;
+  border-radius: 20px;
   display: flex; flex-direction: column; justify-content: space-between;
-  padding: 110px var(--gutter) 40px;
+  padding: 84px 30px 34px;
   overflow: hidden; isolation: isolate;
-  transform: translateY(-100%); transition: transform .55s var(--ease);
+  box-shadow: 0 30px 70px rgba(0, 12, 30, .4);
+  transform: translateY(calc(-100% - 24px)); transition: transform .5s var(--ease);
 }
 .drawer.is-open { transform: none; }
 /* Architectural wash + curtain-wall grid behind the menu */
@@ -1460,10 +1474,10 @@ main { overflow-x: clip; }
   display: flex; align-items: center; gap: 14px; padding: 18px 0; margin: 6px 0;
   border-top: 1px solid rgba(255, 255, 255, .14); border-bottom: 1px solid rgba(255, 255, 255, .14);
 }
-.navproof .avstack .av { width: 40px; height: 40px; border-color: var(--dark); }
-.navproof__meta { display: flex; flex-direction: column; gap: 3px; }
+.navproof .avstack .av { width: 36px; height: 36px; border-color: var(--dark); }
+.navproof__meta { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
 .navproof__meta b { display: flex; align-items: center; gap: 9px; font-size: 15px; font-weight: 500; color: #fff; }
-.navproof__meta small { font-size: 12.5px; color: var(--muted-2); }
+.navproof__meta small { font-size: 12.5px; color: var(--muted-2); white-space: nowrap; }
 
 /* ---- Compact avatar cluster in the desktop nav ---- */
 .navcluster { display: inline-flex; align-items: center; gap: 10px; }

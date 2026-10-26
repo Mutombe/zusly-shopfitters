@@ -77,7 +77,7 @@
   function navProofHTML() {
     const g = D.google || { rating: 5, count: (D.reviews || []).length, url: "#" };
     return `<a class="navproof" href="${g.url}" target="_blank" rel="noopener">
-      ${avatarCluster(5)}
+      ${avatarCluster(4)}
       <span class="navproof__meta"><b>${g.rating.toFixed(1)} ${stars(5)}</b><small>${g.count} happy clients on Google</small></span>
     </a>`;
   }
@@ -108,6 +108,10 @@
        <a href="mailto:${D.company.email}">${esc(D.company.email)}</a><span>${esc(D.company.location)}</span></div>`;
     document.body.appendChild(drawer);
 
+    const backdrop = document.createElement("div");
+    backdrop.className = "drawer-backdrop";
+    document.body.appendChild(backdrop);
+
     // Desktop: concentrated client avatars in the nav
     if ((D.reviews || []).length) {
       const right = $(".topnav__right");
@@ -126,12 +130,22 @@
     const set = (open) => {
       burger.setAttribute("aria-expanded", String(open));
       drawer.classList.toggle("is-open", open);
+      backdrop.classList.toggle("is-open", open);
       drawer.setAttribute("aria-hidden", String(!open));
       document.body.classList.toggle("menu-open", open);
     };
     burger.addEventListener("click", () => set(burger.getAttribute("aria-expanded") !== "true"));
     drawer.addEventListener("click", (e) => e.target.closest("a, .drawer__close") && set(false));
+    backdrop.addEventListener("click", () => set(false));
     document.addEventListener("keydown", (e) => e.key === "Escape" && set(false));
+
+    // Scroll-aware sticky top nav (home hero overlay)
+    const topnav = $(".topnav");
+    if (topnav) {
+      const onScroll = () => topnav.classList.toggle("topnav--stuck", window.scrollY > 24);
+      onScroll();
+      window.addEventListener("scroll", onScroll, { passive: true });
+    }
   }
 
   /* ---------------- Reveal on scroll ---------------- */
