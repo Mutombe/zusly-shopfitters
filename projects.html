@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Projects — Zusly Shopfitters &amp; Projects</title>
+  <meta name="description" content="Selected aluminium and glazing projects across Harare — curtain walls, skylights, pergolas, partitions, cladding, windows and doors.">
+  <link rel="icon" type="image/png" href="assets/img/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Michroma&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body data-page="list" class="inner">
+
+  <header class="header">
+    <div class="wrap">
+      <div class="header__bar">
+        <a class="header__logo" href="index.html" aria-label="Zusly home"><img src="assets/img/logo.png" alt="Zusly"></a>
+        <nav class="header__nav" aria-label="Main">
+          <a href="index.html">Home</a>
+          <a href="projects.html" aria-current="page">Projects</a>
+          <a href="services.html">Services</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <span class="header__loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.3 7-12a7 7 0 1 0-14 0c0 5.7 7 12 7 12Z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg> Harare, ZW</span>
+        <button class="burger" aria-expanded="false" aria-label="Menu"><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span>Projects</span></nav>
+
+    <div class="pagehead pagehead--solo">
+      <h1 class="title-wide">Our Work</h1>
+    </div>
+    <p class="page-intro">A selection of aluminium and glazing installations across Harare. Filter by category, location or year.</p>
+
+    <div class="filters">
+      <div class="tabs" id="catTabs" role="tablist" aria-label="Filter by category"></div>
+      <div class="filters__selects">
+        <label class="fselect"><span>Location</span><select id="fLoc"></select></label>
+        <label class="fselect"><span>Year</span><select id="fYear"></select></label>
+      </div>
+    </div>
+
+    <p class="results-count" id="count"></p>
+    <div class="plist" id="plist"></div>
+  </main>
+
+  <footer class="footer has-deco">
+    <span class="deco deco--crenel deco--at-footer-top" aria-hidden="true"></span>
+    <span class="deco deco--contour deco--at-footer" aria-hidden="true"></span>
+    <div class="footer__top">
+      <div class="footer__brand">
+        <img src="assets/img/logo-white.png" alt="Zusly Shopfitters & Projects">
+        <p>Architectural aluminium &amp; glazing — from curtain walls and skylights to windows, doors, pergolas and balustrades.</p>
+      </div>
+      <div><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><h4>Work</h4><ul><li><a href="projects.html?cat=Curtain+Walls">Curtain Walls</a></li><li><a href="projects.html?cat=Windows+%26+Doors">Windows &amp; Doors</a></li><li><a href="projects.html?cat=Skylights">Skylights</a></li></ul></div>
+      <div><h4>Contact</h4><ul><li><a data-co="phone" href="#">Phone</a></li><li><a data-co="email" href="#">Email</a></li><li><span data-co="address" style="font-size:14.5px"></span></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span>© <span data-year></span> Zusly Shopfitters &amp; Projects. All rights reserved.</span><span data-co="location"></span></div>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

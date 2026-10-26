@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Contact — Zusly Shopfitters &amp; Projects</title>
+  <meta name="description" content="Request a quote or site survey from Zusly Shopfitters & Projects. 10 Arlington Road, Logan Park, Harare.">
+  <link rel="icon" type="image/png" href="assets/img/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Michroma&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body data-page="contact" class="inner">
+
+  <header class="header">
+    <div class="wrap">
+      <div class="header__bar">
+        <a class="header__logo" href="index.html" aria-label="Zusly home"><img src="assets/img/logo.png" alt="Zusly"></a>
+        <nav class="header__nav" aria-label="Main">
+          <a href="index.html">Home</a>
+          <a href="projects.html">Projects</a>
+          <a href="services.html">Services</a>
+          <a href="about.html">About</a>
+          <a href="contact.html" aria-current="page">Contact</a>
+        </nav>
+        <span class="header__loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.3 7-12a7 7 0 1 0-14 0c0 5.7 7 12 7 12Z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg> Harare, ZW</span>
+        <button class="burger" aria-expanded="false" aria-label="Menu"><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span>Contact</span></nav>
+
+    <div class="pagehead pagehead--solo">
+      <h1 class="title-wide">Get in Touch</h1>
+    </div>
+    <p class="page-intro">Send your drawings or an idea and we'll arrange a site survey and a transparent, itemised quote. We reply within one working day.</p>
+
+    <div class="split" style="margin-top:60px">
+      <div>
+        <h2 class="h-wide" style="margin-bottom:30px">Studio &amp; workshop</h2>
+        <dl class="spec" style="margin-bottom:40px">
+          <div><dt>Phone</dt><dd><a data-co="phone" href="#"></a></dd></div>
+          <div><dt>Email</dt><dd><a data-co="email" href="#"></a></dd></div>
+          <div><dt>Address</dt><dd data-co="address"></dd></div>
+          <div><dt>Hours</dt><dd data-co="hours"></dd></div>
+        </dl>
+        <div class="hero-img" style="aspect-ratio:1.6"><iframe title="Zusly location map" src="https://www.google.com/maps?q=10+Arlington+Road+Logan+Park+Harare&output=embed" style="width:100%;height:100%;border:0;filter:grayscale(1) contrast(1.05)" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+      </div>
+
+      <div>
+        <h2 class="h-wide" style="margin-bottom:30px">Request a quote</h2>
+        <form id="contactForm" class="form" novalidate>
+          <div class="field"><label for="cName">Name</label><input id="cName" name="name" autocomplete="name" required><span class="err"></span></div>
+          <div class="field"><label for="cPhone">Phone</label><input id="cPhone" name="phone" type="tel" autocomplete="tel"><span class="err"></span></div>
+          <div class="field"><label for="cEmail">Email</label><input id="cEmail" name="email" type="email" autocomplete="email" required><span class="err"></span></div>
+          <div class="field"><label for="cService">Service</label><select id="cService" name="service"></select><span class="err"></span></div>
+          <div class="field full"><label for="cMsg">Message</label><textarea id="cMsg" name="message" placeholder="Tell us about the space, the system you have in mind, and any drawings you can share." required></textarea><span class="err"></span></div>
+          <div class="form__foot full">
+            <p>Prefer to chat? Fill in the form and tap “Send on WhatsApp”.</p>
+            <div class="cta__actions" style="gap:12px">
+              <button class="btn" type="submit">Send enquiry</button>
+              <button class="btn btn--dark" type="button" id="waSend">Send on WhatsApp</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer has-deco">
+    <span class="deco deco--crenel deco--at-footer-top" aria-hidden="true"></span>
+    <span class="deco deco--contour deco--at-footer" aria-hidden="true"></span>
+    <div class="footer__top">
+      <div class="footer__brand">
+        <img src="assets/img/logo-white.png" alt="Zusly Shopfitters & Projects">
+        <p>Architectural aluminium &amp; glazing — from curtain walls and skylights to windows, doors, pergolas and balustrades.</p>
+      </div>
+      <div><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div><h4>Work</h4><ul><li><a href="projects.html?cat=Curtain+Walls">Curtain Walls</a></li><li><a href="projects.html?cat=Windows+%26+Doors">Windows &amp; Doors</a></li><li><a href="projects.html?cat=Skylights">Skylights</a></li></ul></div>
+      <div><h4>Contact</h4><ul><li><a data-co="phone" href="#">Phone</a></li><li><a data-co="email" href="#">Email</a></li><li><span data-co="address" style="font-size:14.5px"></span></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span>© <span data-year></span> Zusly Shopfitters &amp; Projects. All rights reserved.</span><span data-co="location"></span></div>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
