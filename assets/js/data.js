@@ -234,4 +234,21 @@ window.ZUSLY = {
     { quote: "They read our architect's drawings and turned them into aluminium that fit first time. The glass skylight is the best fabrication we have seen locally.", name: "Wellington Mapfumo", role: "Architect, Harare" },
     { quote: "The doors glide beautifully and the finish is impeccable. Our home feels twice as spacious now with the indoor-outdoor flow.", name: "Rumbidzai Chari", role: "Homeowner, Mount Pleasant" },
   ],
+
+  // Live Google rating (Zusly Projects, Google Business Profile)
+  google: {
+    rating: 5.0,
+    count: 6,
+    url: "https://www.google.com/maps/place/?q=place_id:ChIJafyxhJujMRkRSRF2SKAiJoo",
+  },
+
+  // Real reviews pulled from the Google listing (avatars cached locally)
+  reviews: [
+    { name: "Brighton Mutwira",      avatar: "brighton-mutwira.png",      rating: 5, date: "Apr 2026", meta: "Local Guide · 334 reviews", text: "A place to get unique and quality workmanship." },
+    { name: "Sylvester Zuma Thomas", avatar: "sylvester-zuma-thomas.png", rating: 5, date: "Sep 2022", meta: "7 reviews",                 text: "Proud to be associated with them." },
+    { name: "Chikuhwa Tinei Tinaye", avatar: "chikuhwa-tinei-tinaye.png", rating: 5, date: "Oct 2025", meta: "Google review",             text: "🔥🔥" },
+    { name: "Basil Dapi",            avatar: "basil-dapi.png",            rating: 5, date: "Mar 2026", meta: "Google review",             text: "🇿🇼" },
+    { name: "Tinashe Munashe Gondo", avatar: "tinashe-munashe-gondo.png", rating: 5, date: "Mar 2026", meta: "Local Guide",               text: "" },
+    { name: "Sydney Mamvura",        avatar: "sydney-mamvura.png",        rating: 5, date: "Sep 2025", meta: "Google review",             text: "" },
+  ],
 };

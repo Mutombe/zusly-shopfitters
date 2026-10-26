@@ -56,6 +56,41 @@
       <span class="cardtag__yr">${esc(year)}</span>
     </div>`;
 
+  /* ---------------- Google reviews helpers ---------------- */
+  const revImg = (name) => `assets/img/reviews/${name}`;
+  const stars = (n = 5) => `<span class="stars" aria-hidden="true">${"★".repeat(n)}</span>`;
+
+  // Concentrated, overlapping avatar cluster (happy clients)
+  function avatarCluster(max = 5) {
+    const list = (D.reviews || []);
+    const shown = list.slice(0, max);
+    const total = (D.google && D.google.count) || list.length;
+    const extra = Math.max(0, total - shown.length);
+    const avs = shown.map((r, i) =>
+      `<span class="av" style="z-index:${max - i}"><img src="${revImg(r.avatar)}" alt="${esc(r.name)}" loading="lazy" width="44" height="44"></span>`
+    ).join("");
+    const more = extra > 0 ? `<span class="av av--more" style="z-index:0">+${extra}</span>` : "";
+    return `<span class="avstack">${avs}${more}</span>`;
+  }
+
+  // Trust block used inside the mobile drawer (between links and contact)
+  function navProofHTML() {
+    const g = D.google || { rating: 5, count: (D.reviews || []).length, url: "#" };
+    return `<a class="navproof" href="${g.url}" target="_blank" rel="noopener">
+      ${avatarCluster(5)}
+      <span class="navproof__meta"><b>${g.rating.toFixed(1)} ${stars(5)}</b><small>${g.count} happy clients on Google</small></span>
+    </a>`;
+  }
+
+  // Compact cluster for the desktop top nav
+  function navClusterHTML() {
+    const g = D.google || { rating: 5, count: (D.reviews || []).length, url: "#" };
+    return `<a class="navcluster" href="${g.url}" target="_blank" rel="noopener" aria-label="${g.count} five-star Google reviews">
+      ${avatarCluster(3)}
+      <span class="navcluster__meta"><b>${g.rating.toFixed(1)}</b><span class="stars">${"★".repeat(5)}</span></span>
+    </a>`;
+  }
+
   /* ---------------- Mobile drawer ---------------- */
   function initNav() {
     const burger = $(".burger");
@@ -68,9 +103,25 @@
     drawer.innerHTML =
       `<button class="drawer__close" aria-label="Close menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"/></svg></button>
        <nav aria-label="Mobile">${links.map((a) => `<a href="${a.getAttribute("href")}">${esc(a.textContent)}</a>`).join("")}</nav>
+       ${navProofHTML()}
        <div class="drawer__foot"><a href="tel:${D.company.phone.replace(/\s/g, "")}">${esc(D.company.phone)}</a>
        <a href="mailto:${D.company.email}">${esc(D.company.email)}</a><span>${esc(D.company.location)}</span></div>`;
     document.body.appendChild(drawer);
+
+    // Desktop: concentrated client avatars in the nav
+    if ((D.reviews || []).length) {
+      const right = $(".topnav__right");
+      if (right) right.insertAdjacentHTML("afterbegin", navClusterHTML());
+      // Inner-page header is a 3-col grid; keep the cluster + location in one cell
+      const loc = $(".header__loc");
+      if (loc && loc.parentNode) {
+        const wrap = document.createElement("div");
+        wrap.className = "header__right";
+        loc.parentNode.insertBefore(wrap, loc);
+        wrap.innerHTML = navClusterHTML();
+        wrap.appendChild(loc);
+      }
+    }
     burger.setAttribute("aria-controls", "drawer");
     const set = (open) => {
       burger.setAttribute("aria-expanded", String(open));
@@ -175,6 +226,49 @@
       logos.innerHTML = one + one;   // two copies for a continuous loop
       initHeroMarquee();
     }
+
+    initReviews();
+  }
+
+  /* ---------------- Google reviews section ---------------- */
+  function initReviews() {
+    const wrap = $("#reviews");
+    if (!wrap || !(D.reviews || []).length) return;
+    const g = D.google || { rating: 5, count: D.reviews.length, url: "#" };
+    const gl = $("#reviewsGoogle");
+    if (gl) gl.href = g.url;
+
+    const bar = `
+      <div class="rev-bar reveal">
+        <div class="rev-bar__score">
+          <span class="rev-bar__g">${googleG()} Google</span>
+          <b>${g.rating.toFixed(1)}</b>
+          <span class="stars rev-bar__stars">${"★".repeat(5)}</span>
+          <span class="rev-bar__sub">${g.count} client reviews</span>
+        </div>
+        <div class="rev-bar__right">
+          ${avatarCluster(6)}
+          <a class="btn rev-bar__cta" href="${g.url}" target="_blank" rel="noopener">View on Google</a>
+        </div>
+      </div>`;
+
+    const cards = D.reviews.filter((r) => r.text).map((r) => `
+      <article class="rev-card reveal">
+        <span class="rev-card__g" aria-hidden="true">${googleG()}</span>
+        <span class="stars rev-card__stars">${"★".repeat(r.rating)}</span>
+        <p class="rev-card__text">${esc(r.text)}</p>
+        <div class="rev-card__person">
+          <img class="rev-card__av" src="${revImg(r.avatar)}" alt="${esc(r.name)}" loading="lazy" width="42" height="42">
+          <span class="rev-card__id"><b>${esc(r.name)}</b><small>${esc(r.meta)} · ${esc(r.date)}</small></span>
+        </div>
+      </article>`).join("");
+
+    wrap.innerHTML = bar + `<div class="rev-grid">${cards}</div>`;
+  }
+
+  // Google "G" mark (inline SVG, brand four-colour)
+  function googleG() {
+    return `<svg class="g-mark" viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8c-.5 2.7-2 5-4.4 6.6v5.5h7.1c4.1-3.8 6.6-9.4 6.6-16.1z"/><path fill="#34A853" d="M24 46c6 0 11-2 14.6-5.4l-7.1-5.5c-2 1.3-4.5 2.1-7.5 2.1-5.8 0-10.7-3.9-12.4-9.1H4.3v5.7C7.9 41.1 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.6 28.1c-.4-1.3-.7-2.7-.7-4.1s.3-2.8.7-4.1v-5.7H4.3C2.8 17.1 2 20.4 2 24s.8 6.9 2.3 9.8l7.3-5.7z"/><path fill="#EA4335" d="M24 10.8c3.3 0 6.2 1.1 8.5 3.3l6.3-6.3C35 4.1 30 2 24 2 15.4 2 7.9 6.9 4.3 14.2l7.3 5.7c1.7-5.2 6.6-9.1 12.4-9.1z"/></svg>`;
   }
 
   /* ---------------- Hero marquee: auto-flow + drag/swipe to scroll --------- */

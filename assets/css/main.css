@@ -1390,3 +1390,88 @@ main { overflow-x: clip; }
   border-radius: 50%; background: var(--brand); border: 2px solid var(--dark);
 }
 .wa__label { background: var(--dark); }
+
+/* ==========================================================================
+   Google reviews + client avatar clusters
+   ========================================================================== */
+.stars { color: #f5a623; letter-spacing: 1.5px; font-size: 13px; line-height: 1; white-space: nowrap; }
+.g-mark { width: 1em; height: 1em; display: inline-block; vertical-align: -.14em; }
+
+/* Concentrated, overlapping avatar cluster */
+.avstack { display: inline-flex; align-items: center; }
+.avstack .av {
+  width: 40px; height: 40px; border-radius: 50%; overflow: hidden; margin-left: -12px;
+  border: 2px solid #fff; background: #d8dee6; flex: 0 0 auto;
+  box-shadow: 0 1px 4px rgba(0, 20, 45, .18);
+}
+.avstack .av:first-child { margin-left: 0; }
+.avstack .av img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.avstack .av--more {
+  display: grid; place-items: center; font-size: 12px; font-weight: 600;
+  color: #fff; background: var(--brand);
+}
+
+/* ---- Reviews section ---- */
+.reviews { margin-top: 40px; }
+
+/* Slim Google summary bar */
+.rev-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 20px 28px; flex-wrap: wrap;
+  background: var(--dark); color: #fff; border-radius: 12px; padding: 18px 26px;
+  position: relative; overflow: hidden; isolation: isolate;
+}
+.rev-bar::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(120% 140% at 100% 0, rgba(242, 102, 3, .20), transparent 52%);
+}
+.rev-bar__score { display: flex; align-items: center; gap: 13px; }
+.rev-bar__g { display: inline-flex; align-items: center; gap: 7px; font-size: 13.5px; font-weight: 600; color: rgba(255, 255, 255, .9); }
+.rev-bar__score b { font-family: var(--wide); font-size: 28px; font-weight: 400; line-height: 1; }
+.rev-bar__stars { font-size: 15px; }
+.rev-bar__sub { font-size: 13.5px; color: rgba(255, 255, 255, .68); }
+.rev-bar__right { display: flex; align-items: center; gap: 20px; }
+.rev-bar__right .avstack .av { width: 38px; height: 38px; border-color: #0a3157; }
+.rev-bar__cta { flex: 0 0 auto; height: 44px; padding: 0 20px; }
+
+/* Symmetrical review-card grid */
+.rev-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 16px; }
+@media (max-width: 1000px) { .rev-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px)  { .rev-grid { grid-template-columns: 1fr; } }
+
+.rev-card {
+  position: relative; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 22px 20px;
+  display: flex; flex-direction: column; gap: 12px;
+  transition: box-shadow .28s var(--ease), transform .28s var(--ease), border-color .28s var(--ease);
+}
+.rev-card:hover { box-shadow: 0 16px 38px rgba(0, 30, 60, .1); transform: translateY(-3px); border-color: #d4dae1; }
+.rev-card__g { position: absolute; top: 20px; right: 18px; width: 17px; height: 17px; opacity: .9; }
+.rev-card__stars { font-size: 13px; }
+.rev-card__text { font-size: 15px; line-height: 1.5; color: var(--ink); flex: 1 1 auto; margin: 0; padding-right: 22px; }
+.rev-card__person { display: flex; align-items: center; gap: 11px; margin-top: 4px; padding-top: 14px; border-top: 1px solid var(--line); }
+.rev-card__av { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; flex: 0 0 auto; background: #d8dee6; }
+.rev-card__id { display: flex; flex-direction: column; min-width: 0; }
+.rev-card__id b { font-size: 14.5px; letter-spacing: -.01em; }
+.rev-card__id small { font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.deco--at-reviews { top: 0; left: 0; right: 0; height: 340px; opacity: .05; --fade: linear-gradient(180deg, transparent, #000 30%, #000 60%, transparent); }
+
+/* ---- Trust block inside the mobile drawer ---- */
+.navproof {
+  display: flex; align-items: center; gap: 14px; padding: 18px 0; margin: 6px 0;
+  border-top: 1px solid rgba(255, 255, 255, .14); border-bottom: 1px solid rgba(255, 255, 255, .14);
+}
+.navproof .avstack .av { width: 40px; height: 40px; border-color: var(--dark); }
+.navproof__meta { display: flex; flex-direction: column; gap: 3px; }
+.navproof__meta b { display: flex; align-items: center; gap: 9px; font-size: 15px; font-weight: 500; color: #fff; }
+.navproof__meta small { font-size: 12.5px; color: var(--muted-2); }
+
+/* ---- Compact avatar cluster in the desktop nav ---- */
+.navcluster { display: inline-flex; align-items: center; gap: 10px; }
+.navcluster .avstack .av { width: 30px; height: 30px; margin-left: -10px; box-shadow: 0 1px 3px rgba(0, 20, 45, .22); }
+.navcluster__meta { display: inline-flex; flex-direction: column; line-height: 1.1; }
+.navcluster__meta b { font-size: 14px; font-weight: 600; color: var(--ink); }
+.navcluster__meta .stars { font-size: 9px; letter-spacing: .5px; }
+.topnav__right .navcluster__meta b { color: #fff; }
+.header__right { display: flex; align-items: center; justify-content: flex-end; gap: 20px; }
+.header__right .navcluster .avstack .av { border-color: #fff; }
+@media (max-width: 900px) { .navcluster { display: none !important; } }
