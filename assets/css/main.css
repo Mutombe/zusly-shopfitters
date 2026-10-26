@@ -986,14 +986,9 @@ main { overflow-x: clip; }
 .marquee__track { display: flex; align-items: center; gap: 46px; width: max-content; }
 .logo-chip { flex: 0 0 auto; display: inline-flex; align-items: center; user-select: none; }
 .logo-chip img {
-  height: 38px; width: auto; max-width: 170px; object-fit: contain; display: block;
-  opacity: .92; transition: opacity .3s var(--ease);
+  height: 40px; width: auto; max-width: 170px; object-fit: contain; display: block;
+  opacity: .95; transition: opacity .3s var(--ease);
   pointer-events: none; -webkit-user-drag: none;
-  /* crisp white halo keeps dark marks legible on the dark hero — no box */
-  filter:
-    drop-shadow(0 0 1px rgba(255, 255, 255, .95))
-    drop-shadow(0 0 1px rgba(255, 255, 255, .9))
-    drop-shadow(0 0 9px rgba(255, 255, 255, .4));
 }
 .logo-chip:hover img { opacity: 1; }
 
@@ -1002,4 +997,26 @@ main { overflow-x: clip; }
   .hero__marquee-label { display: none; }
   .logo-chip img { height: 32px; max-width: 142px; }
   .marquee__track { gap: 36px; }
+}
+
+/* ==========================================================================
+   MOBILE HEADER CONTROLS — quick search, burger, and drawer close button
+   ========================================================================== */
+.navsearch { display: none; width: 42px; height: 44px; align-items: center; justify-content: center; }
+.navsearch svg { width: 21px; height: 21px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.topnav__right .navsearch { color: #fff; }
+
+.header__ctrl { display: none; align-items: center; gap: 2px; justify-self: end; }
+.header__ctrl .navsearch, .header__ctrl .burger { color: var(--ink); }
+.menu-open .header__ctrl .navsearch, .menu-open .header__ctrl .burger { color: #fff; }
+
+.drawer__close {
+  position: absolute; top: 20px; right: calc(var(--gutter) - 6px);
+  width: 46px; height: 46px; display: grid; place-items: center; color: #fff;
+}
+.drawer__close svg { width: 25px; height: 25px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; }
+
+@media (max-width: 900px) {
+  .navsearch { display: inline-flex; }
+  .header__ctrl { display: flex; }
 }

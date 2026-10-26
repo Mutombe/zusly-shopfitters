@@ -34,7 +34,8 @@
     drawer.id = "drawer";
     drawer.setAttribute("aria-hidden", "true");
     drawer.innerHTML =
-      `<nav aria-label="Mobile">${links.map((a) => `<a href="${a.getAttribute("href")}">${esc(a.textContent)}</a>`).join("")}</nav>
+      `<button class="drawer__close" aria-label="Close menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"/></svg></button>
+       <nav aria-label="Mobile">${links.map((a) => `<a href="${a.getAttribute("href")}">${esc(a.textContent)}</a>`).join("")}</nav>
        <div class="drawer__foot"><a href="tel:${D.company.phone.replace(/\s/g, "")}">${esc(D.company.phone)}</a>
        <a href="mailto:${D.company.email}">${esc(D.company.email)}</a><span>${esc(D.company.location)}</span></div>`;
     document.body.appendChild(drawer);
@@ -46,7 +47,7 @@
       document.body.classList.toggle("menu-open", open);
     };
     burger.addEventListener("click", () => set(burger.getAttribute("aria-expanded") !== "true"));
-    drawer.addEventListener("click", (e) => e.target.closest("a") && set(false));
+    drawer.addEventListener("click", (e) => e.target.closest("a, .drawer__close") && set(false));
     document.addEventListener("keydown", (e) => e.key === "Escape" && set(false));
   }
 
