@@ -478,7 +478,22 @@
     const next = D.projects[(idx + 1) % D.projects.length];
     const city = D.company.city;
 
-    document.title = `${p.name}, Zusly`;
+    document.title = `${p.name} | Zusly Projects`;
+    (function seo() {
+      const BASE = "https://zuslyprojects.co.zw";
+      const url = `${BASE}/project.html?p=${p.slug}`;
+      const imgUrl = `${BASE}/assets/img/${p.img}`;
+      const set = (sel, attr, val) => { const el = document.head.querySelector(sel); if (el) el.setAttribute(attr, val); };
+      set('meta[name="description"]', "content", p.summary);
+      set('link[rel="canonical"]', "href", url);
+      set('meta[property="og:title"]', "content", `${p.name} | Zusly Projects`);
+      set('meta[property="og:description"]', "content", p.summary);
+      set('meta[property="og:url"]', "content", url);
+      set('meta[property="og:image"]', "content", imgUrl);
+      set('meta[name="twitter:title"]', "content", `${p.name} | Zusly Projects`);
+      set('meta[name="twitter:description"]', "content", p.summary);
+      set('meta[name="twitter:image"]', "content", imgUrl);
+    })();
     $("#crumbName").textContent = p.name;
     $("#pTitle").innerHTML = `${esc(p.name)} <span style="white-space:nowrap">№${p.no}</span>`;
     $("#pBack").href = `project.html?p=${prev.slug}`;
