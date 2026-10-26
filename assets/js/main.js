@@ -139,10 +139,17 @@
     backdrop.addEventListener("click", () => set(false));
     document.addEventListener("keydown", (e) => e.key === "Escape" && set(false));
 
-    // Scroll-aware sticky top nav (home hero overlay)
+    // Move the hero top-nav out to <body>: the hero sets isolation:isolate,
+    // which would otherwise trap the nav's z-index and let later sections
+    // paint over it (burger becomes unclickable after scrolling).
     const topnav = $(".topnav");
-    if (topnav) {
-      const onScroll = () => topnav.classList.toggle("topnav--stuck", window.scrollY > 24);
+    if (topnav && topnav.parentElement !== document.body) document.body.appendChild(topnav);
+
+    // Scroll-aware nav: full height at rest, slim while scrolling (home + inner)
+    const navEl = topnav || $(".header");
+    if (navEl) {
+      const cls = topnav ? "topnav--stuck" : "header--stuck";
+      const onScroll = () => navEl.classList.toggle(cls, window.scrollY > 24);
       onScroll();
       window.addEventListener("scroll", onScroll, { passive: true });
     }
