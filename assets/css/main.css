@@ -962,44 +962,44 @@ main { overflow-x: clip; }
 .page-intro { max-width: 620px; margin: 10px 0 20px; font-size: 16px; line-height: 1.7; color: #4a4a4a; }
 
 /* ==========================================================================
-   HERO CLIENT MARQUEE (flowing logo strip at the hero's lower edge)
+   HERO CLIENT MARQUEE (draggable, auto-flowing logo strip — no chips)
    ========================================================================== */
 .hero__marquee {
-  display: flex; align-items: center; gap: 24px;
-  padding: 16px var(--gutter) 2px;
-  border-top: 1px solid rgba(255, 255, 255, .15);
+  display: flex; align-items: center; gap: 28px;
+  padding: 22px var(--gutter) 62px;        /* generous gap to the hero's bottom edge */
+  border-top: 1px solid rgba(255, 255, 255, .13);
 }
 .hero__marquee-label {
   flex: 0 0 auto;
   font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase;
-  color: rgba(255, 255, 255, .6); white-space: nowrap;
+  color: rgba(255, 255, 255, .55); white-space: nowrap;
 }
 .marquee {
-  position: relative; overflow: hidden; flex: 1 1 auto; min-width: 0;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-          mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  position: relative; flex: 1 1 auto; min-width: 0;
+  overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain;
+  scrollbar-width: none; cursor: grab; touch-action: pan-x;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
 }
-.marquee__track {
-  display: flex; align-items: center; gap: 16px;
-  width: max-content;
-  animation: zMarquee 44s linear infinite;
+.marquee::-webkit-scrollbar { display: none; }
+.marquee.dragging { cursor: grabbing; }
+.marquee__track { display: flex; align-items: center; gap: 46px; width: max-content; }
+.logo-chip { flex: 0 0 auto; display: inline-flex; align-items: center; user-select: none; }
+.logo-chip img {
+  height: 38px; width: auto; max-width: 170px; object-fit: contain; display: block;
+  opacity: .92; transition: opacity .3s var(--ease);
+  pointer-events: none; -webkit-user-drag: none;
+  /* crisp white halo keeps dark marks legible on the dark hero — no box */
+  filter:
+    drop-shadow(0 0 1px rgba(255, 255, 255, .95))
+    drop-shadow(0 0 1px rgba(255, 255, 255, .9))
+    drop-shadow(0 0 9px rgba(255, 255, 255, .4));
 }
-.marquee:hover .marquee__track { animation-play-state: paused; }
-@keyframes zMarquee { to { transform: translateX(-50%); } }
+.logo-chip:hover img { opacity: 1; }
 
-.logo-chip {
-  flex: 0 0 auto;
-  display: flex; align-items: center; justify-content: center;
-  height: 48px; padding: 0 18px;
-  background: #fff; border-radius: 8px;
-  box-shadow: 0 8px 22px -10px rgba(0, 0, 0, .55);
-}
-.logo-chip img { height: 26px; width: auto; max-width: 150px; object-fit: contain; display: block; }
-
-@media (prefers-reduced-motion: reduce) { .marquee__track { animation: none; } }
 @media (max-width: 900px) {
-  .hero__marquee { gap: 0; padding: 12px var(--gutter) 2px; }
+  .hero__marquee { gap: 0; padding: 16px var(--gutter) 44px; }
   .hero__marquee-label { display: none; }
-  .logo-chip { height: 42px; padding: 0 15px; }
-  .logo-chip img { height: 22px; max-width: 128px; }
+  .logo-chip img { height: 32px; max-width: 142px; }
+  .marquee__track { gap: 36px; }
 }

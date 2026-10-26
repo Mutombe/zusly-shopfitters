@@ -112,7 +112,49 @@
       const one = D.clientLogos.map((c) =>
         `<span class="logo-chip"><img src="assets/img/clients/${c.file}" alt="${esc(c.name)}" loading="lazy"></span>`).join("");
       logos.innerHTML = one + one;   // two copies → seamless infinite scroll
+      initHeroMarquee();
     }
+  }
+
+  /* ---------------- Hero marquee: auto-flow + drag/swipe to scroll --------- */
+  function initHeroMarquee() {
+    const m = $(".marquee");
+    const track = $(".marquee__track", m || document);
+    if (!m || !track) return;
+    const half = () => track.scrollWidth / 2;               // width of one logo set
+    const wrap = () => {                                     // keep scroll within [0, half) for an endless loop
+      const h = half();
+      if (h <= 0) return;
+      if (m.scrollLeft >= h) m.scrollLeft -= h;
+      else if (m.scrollLeft < 0) m.scrollLeft += h;
+    };
+    let paused = false, dragging = false, startX = 0, startLeft = 0;
+    const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const tick = () => {
+      if (!paused && !dragging) { m.scrollLeft += 0.5; wrap(); }  // ~30px/s auto-drift
+      requestAnimationFrame(tick);
+    };
+
+    m.addEventListener("scroll", wrap, { passive: true });
+    m.addEventListener("pointerenter", () => { paused = true; });
+    m.addEventListener("pointerleave", () => { paused = false; endDrag(); });
+
+    const endDrag = () => { if (dragging) { dragging = false; m.classList.remove("dragging"); } };
+    m.addEventListener("pointerdown", (e) => {
+      paused = true;
+      if (e.pointerType === "touch") return;                // let native touch scrolling handle it
+      dragging = true; m.classList.add("dragging");
+      startX = e.clientX; startLeft = m.scrollLeft;
+      try { m.setPointerCapture(e.pointerId); } catch (_) {}
+    });
+    m.addEventListener("pointermove", (e) => { if (dragging) { m.scrollLeft = startLeft - (e.clientX - startX); } });
+    m.addEventListener("pointerup", endDrag);
+    m.addEventListener("pointercancel", endDrag);
+    m.addEventListener("touchstart", () => { paused = true; }, { passive: true });
+    m.addEventListener("touchend", () => { paused = false; }, { passive: true });
+
+    if (!reduce) requestAnimationFrame(tick);
   }
 
   /* ---------------- Projects list ---------------- */
