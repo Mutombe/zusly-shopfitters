@@ -73,11 +73,27 @@
     return `<span class="avstack">${avs}${more}</span>`;
   }
 
+  // Nav-only cluster: generic, diverse client faces (not the named Google
+  // reviewers — those keep their real photos on the review cards + rev-bar).
+  const NAV_FACES = [
+    "client-1.jpg", "client-2.jpg", "client-3.jpg", "client-4.jpg", "client-5.jpg",
+  ];
+  function navAvatarCluster(max = 4) {
+    const shown = NAV_FACES.slice(0, max);
+    const total = (D.google && D.google.count) || (D.reviews || []).length;
+    const extra = Math.max(0, total - shown.length);
+    const avs = shown.map((f, i) =>
+      `<span class="av" style="z-index:${max - i}"><img src="assets/img/nav/${f}" alt="" loading="lazy" width="44" height="44"></span>`
+    ).join("");
+    const more = extra > 0 ? `<span class="av av--more" style="z-index:0">+${extra}</span>` : "";
+    return `<span class="avstack">${avs}${more}</span>`;
+  }
+
   // Trust block used inside the mobile drawer (between links and contact)
   function navProofHTML() {
     const g = D.google || { rating: 5, count: (D.reviews || []).length, url: "#" };
     return `<a class="navproof" href="${g.url}" target="_blank" rel="noopener">
-      ${avatarCluster(4)}
+      ${navAvatarCluster(4)}
       <span class="navproof__meta"><b>${g.rating.toFixed(1)} ${stars(5)}</b><small>${g.count} happy clients on Google</small></span>
     </a>`;
   }
@@ -86,7 +102,7 @@
   function navClusterHTML() {
     const g = D.google || { rating: 5, count: (D.reviews || []).length, url: "#" };
     return `<a class="navcluster" href="${g.url}" target="_blank" rel="noopener" aria-label="${g.count} five-star Google reviews">
-      ${avatarCluster(3)}
+      ${navAvatarCluster(3)}
       <span class="navcluster__meta"><b>${g.rating.toFixed(1)}</b><span class="stars">${"★".repeat(5)}</span></span>
     </a>`;
   }
