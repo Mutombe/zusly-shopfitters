@@ -66,9 +66,16 @@
   <!-- ============ HERO ============ -->
   <header class="hero">
     <div class="hero__media" id="heroBg">
-      <img src="assets/img/clad-residence-01.jpg" alt="" class="is-active" width="1280" height="960">
-      <img src="assets/img/istock-construction-skyline.jpg" alt="" loading="lazy" width="2000" height="1331">
-      <img src="assets/img/clad-louvre.jpg" alt="" loading="lazy" width="1280" height="960">
+      <div class="hero__ambient" aria-hidden="true">
+        <img src="assets/img/clad-residence-01.jpg" alt="" class="is-active">
+        <img src="assets/img/istock-construction-skyline.jpg" alt="" loading="lazy">
+        <img src="assets/img/clad-louvre.jpg" alt="" loading="lazy">
+      </div>
+      <div class="hero__frame">
+        <img src="assets/img/clad-residence-01.jpg" alt="Composite-clad modern residence by Zusly Projects" class="is-active" width="1280" height="960" fetchpriority="high">
+        <img src="assets/img/istock-construction-skyline.jpg" alt="Harare construction skyline" loading="lazy" decoding="async" width="2000" height="1331">
+        <img src="assets/img/clad-louvre.jpg" alt="Aluminium louvre cladding against the sky" loading="lazy" decoding="async" width="1280" height="960">
+      </div>
     </div>
     <span class="deco deco--grid deco--at-hero" aria-hidden="true"></span>
 
