@@ -798,21 +798,13 @@
   function initHeroCarousel() {
     const host = document.getElementById("heroBg");
     if (!host) return;
-    // Two stacked layers (blurred ambient fill + sharp contained photo) cycle in lockstep.
-    const layers = [].slice.call(host.querySelectorAll(".hero__ambient, .hero__frame"));
-    const groups = layers.length
-      ? layers.map((l) => [].slice.call(l.querySelectorAll("img")))
-      : [[].slice.call(host.querySelectorAll("img"))];
-    const count = Math.max.apply(null, groups.map((g) => g.length));
-    if (count < 2) return;
+    const imgs = [].slice.call(host.querySelectorAll("img"));
+    if (imgs.length < 2) return;
     let i = 0;
     const advance = () => {
-      const next = (i + 1) % count;
-      groups.forEach((g) => {
-        if (g[i]) g[i].classList.remove("is-active");
-        if (g[next]) g[next].classList.add("is-active");
-      });
-      i = next;
+      imgs[i].classList.remove("is-active");
+      i = (i + 1) % imgs.length;
+      imgs[i].classList.add("is-active");
     };
     let timer = setInterval(advance, 6000);
     // pause when the tab is hidden, resume when visible
