@@ -249,7 +249,7 @@
     }
     // Featured: best project as a large lead card on top, the rest in the grid
     const picked = D.projects.slice(0, 6);
-    const leadIdx = Math.max(0, picked.findIndex((p) => p.slug === "dark-reflective-residence"));
+    const leadIdx = Math.max(0, picked.findIndex((p) => p.slug === "composite-clad-residence"));
     const lead = picked[leadIdx];
     const rest = picked.filter((_, i) => i !== leadIdx);
     const leadEl = $("#featuredLead");
