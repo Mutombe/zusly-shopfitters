@@ -1002,9 +1002,18 @@ main { overflow-x: clip; }
    column, takes the space the text leaves, and fades into the copy below —
    so the picture reads on its own instead of sitting behind all the text. */
 @media (max-width: 640px) {
+  /* Lock the hero to exactly one screen (less the 8px top + 8px bottom frame)
+     so the first view fits with no scroll and both white margins show equally.
+     The photo region flexes to take whatever height the copy leaves. */
+  .hero {
+    height: calc(100svh - 16px);
+    max-height: calc(100svh - 16px);
+    min-height: 0;
+    overflow: hidden;
+  }
   .hero__media {
     position: relative; inset: auto; z-index: 0;
-    flex: 1 1 auto; min-height: 42vh; overflow: hidden;
+    flex: 1 1 auto; min-height: 0; overflow: hidden;
     -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 60%, rgba(0,0,0,.5) 80%, transparent 100%);
             mask-image: linear-gradient(180deg, #000 0%, #000 60%, rgba(0,0,0,.5) 80%, transparent 100%);
   }
