@@ -78,7 +78,7 @@ window.ZUSLY = {
 
   // "How we work" - shown on the home page and every project page
   journey: [
-    { img: "istock-aluminium-door.jpg",                                 title: "Consultation & Survey", text: "A site visit and measure-up. We assess structure, light and intent before a line is drawn." },
+    { img: "istock-construction-skyline.jpg",                           title: "Consultation & Survey", text: "A site visit and measure-up. We assess structure, light and intent before a line is drawn." },
     { img: "482032362_1186614916799945_2651704115299276547_n.jpg",      title: "Design & Quotation",   text: "Detailed drawings, 3D visuals and an itemised quote. You see every line before you commit." },
     { img: "MG_8868-1024x683.jpg",                                      title: "Fabrication & QC",     text: "Every profile and panel is precision-cut in our Logan Park workshop and inspected." },
     { img: "MG_8871-1024x683.jpg",                                      title: "Installation & Handover", text: "Clean on-site fitting to millimetre accuracy, then a full walkthrough before we hand over." },
