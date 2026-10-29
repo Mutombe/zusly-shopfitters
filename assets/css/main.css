@@ -135,8 +135,10 @@ mark { background: color-mix(in srgb, var(--brand) 20%, transparent); color: inh
 /* ---------- Interaction feedback ---------- */
 .btn:active, .pill:active { transform: translateY(1px) scale(.99); }
 @media (hover: hover) {
-  .card, .pitem { transition: transform var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease); }
-  .card:hover, .pitem:hover { transform: translateY(-5px); box-shadow: 0 18px 40px rgba(0, 30, 60, .1); }
+  .card, .pitem { transition: transform var(--dur-2) var(--ease); }
+  /* No drop shadow on hover: the card metadata sits on the left/right edges,
+     and a shadow boxes it in and spoils that edge-to-edge layout. Lift only. */
+  .card:hover, .pitem:hover { transform: translateY(-5px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -201,34 +203,40 @@ mark { background: color-mix(in srgb, var(--brand) 20%, transparent); color: inh
 .hero__media img {
   position: absolute; inset: 0;
   width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%;
-  opacity: 0; transform: scale(1.08);
+  opacity: 0; transform: scale(1.12);
   transition: opacity 1.3s var(--ease);
-  filter: saturate(.95) contrast(1.04) brightness(.97);   /* gentle grade ties mixed photos into one set */
+  /* 1. Colour grade — pulls colour back, lifts contrast, lowers exposure so
+     every hero photo reads as one graded set. */
+  filter: saturate(.82) contrast(1.07) brightness(.92);
 }
 .hero__media img.is-active { opacity: 1; animation: heroZoom 9s var(--ease) forwards; }
-@keyframes heroZoom { from { transform: scale(1.08); } to { transform: scale(1); } }
-/* Brand wash (navy duotone, multiplied) over the photo — richer, on-brand */
+@keyframes heroZoom { from { transform: scale(1.12); } to { transform: scale(1); } }
+/* 2. Warm duotone wash — a diagonal bronze → near-black, multiplied into the
+   photo, so warm/rich in one corner and deep in the other. */
 .hero__media::after {
   content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: linear-gradient(135deg, rgba(0,43,82,.20), rgba(10,14,20,.12));
+  background: linear-gradient(135deg, rgba(101,88,74,.34), rgba(22,21,19,.17));
   mix-blend-mode: multiply;
 }
-/* Fine film grain — masks compression, reads as high quality */
+/* 3. Fine film grain, multiplied — masks compression, reads as high quality. */
 .hero__media::before {
   content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 160px 160px;
-  mix-blend-mode: overlay; opacity: .08;
+  mix-blend-mode: multiply; opacity: .14;
 }
 @media (prefers-reduced-motion: reduce) {
   .hero__media img { transition: opacity .3s linear; }
   .hero__media img.is-active { animation: none; transform: none; }
 }
+/* 4. Warm vignette + text gradient — darkens edges (eye to centre), shades the
+   top for the nav and the bottom for the wordmark/search; warm near-black so
+   shadows stay warm, not grey. */
 .hero::before {
   content: ""; position: absolute; inset: 0; z-index: -1;
   background:
-    radial-gradient(120% 100% at 50% 38%, transparent 58%, rgba(4,8,14,.34) 100%),
-    linear-gradient(180deg, rgba(0,0,0,.42) 0%, rgba(0,0,0,.08) 22%, rgba(0,0,0,0) 38%, rgba(0,0,0,.35) 58%, rgba(0,0,0,.82) 82%, rgba(0,0,0,.9) 100%);
+    radial-gradient(130% 95% at 50% 42%, transparent 45%, rgba(10,9,8,.5) 100%),
+    linear-gradient(180deg, rgba(10,9,8,.55) 0%, rgba(10,9,8,.08) 22%, rgba(10,9,8,0) 38%, rgba(10,9,8,.4) 58%, rgba(10,9,8,.84) 82%, rgba(10,9,8,.92) 100%);
 }
 .hero__content { padding: 0 var(--gutter) 58px; }
 .hero__tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
@@ -252,8 +260,7 @@ mark { background: color-mix(in srgb, var(--brand) 20%, transparent); color: inh
 .search__field:nth-child(3) { width: 272px; }
 /* Healthy spacing + hairline divider between the hero dropdowns */
 .search__field + .search__field {
-  margin-left: 26px; padding-left: 26px;
-  border-left: 1px solid rgba(255, 255, 255, .2);
+  margin-left: 40px;   /* spacing only — the layout already separates the fields, no divider line */
 }
 .search__label { font-size: 15px; font-weight: 500; color: #fff; }
 .search__select { position: relative; }
@@ -1348,7 +1355,12 @@ main { overflow-x: clip; }
 .design__no { font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--brand); font-weight: 600; }
 .design h3 { font-family: var(--wide); font-weight: 400; font-size: 16px; line-height: 1.4; margin: 10px 0 8px; }
 .design p { font-size: 14px; color: var(--muted); line-height: 1.6; }
-@media (max-width: 640px) { .design { flex: 0 0 78%; } }
+/* Mobile: narrower cards + tighter gap so ~a quarter of the next card peeks,
+   signalling the strip scrolls sideways. */
+@media (max-width: 640px) {
+  .design-grid { gap: 16px; }
+  .design { flex: 0 0 62%; }
+}
 
 /* Curtain-wall module pattern (band + design section) */
 .deco--curtain { --pat: url(../img/patterns/curtainwall.svg) 0 0 / 52px 78px repeat; }
