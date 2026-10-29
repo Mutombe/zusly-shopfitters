@@ -1006,7 +1006,9 @@ main { overflow-x: clip; }
      so the first view fits with no scroll and both white margins show equally.
      The photo region flexes to take whatever height the copy leaves. */
   .hero {
+    height: calc(100vh - 16px);            /* fallback for browsers without svh */
     height: calc(100svh - 16px);
+    max-height: calc(100vh - 16px);
     max-height: calc(100svh - 16px);
     min-height: 0;
     overflow: hidden;
