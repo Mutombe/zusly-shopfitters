@@ -249,6 +249,7 @@ mark { background: color-mix(in srgb, var(--brand) 20%, transparent); color: inh
   max-width: 372px; padding-bottom: 8px;
   font-size: 15px; line-height: 1.55; color: rgba(255, 255, 255, .9);
 }
+.hero__lede .hl { color: var(--brand); font-weight: 600; }
 
 .search {
   display: flex; align-items: flex-end; flex-wrap: wrap; gap: 20px 0;
@@ -893,7 +894,8 @@ main { overflow-x: clip; }
 @media (max-width: 640px) {
   .hero__title { font-size: clamp(34px, 9.6vw, 46px); line-height: 1.0; }
   .hero__lede { font-size: 15px; }
-  .hero__tags .pill { height: 30px; padding: 0 13px; font-size: 12.5px; }
+  /* Pills dropped on phones to save height; their terms are highlighted in the lede instead */
+  .hero__tags { display: none; }
 
   /* Swipeable rows instead of very long stacks */
   .cards, .steps {
